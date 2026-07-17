@@ -1,0 +1,21 @@
+# BUG-001: Duty-cycle budget usage is presented as actual duty cycle
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/airtime.py
++++ b/repeater/airtime.py
+@@
+-        utilization = (current_airtime / self.max_airtime_per_minute) * 100
++        actual_duty_percent = (current_airtime / self.window_size / 1000.0) * 100
++        budget_used_percent = (
++            current_airtime / self.max_airtime_per_minute * 100
++            if self.max_airtime_per_minute > 0 else 0.0
++        )
+@@
+-            "utilization_percent": utilization,
++            "actual_duty_percent": actual_duty_percent,
++            "budget_used_percent": budget_used_percent,
++            "utilization_percent": budget_used_percent,  # temporary compatibility alias

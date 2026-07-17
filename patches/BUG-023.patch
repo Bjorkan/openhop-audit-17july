@@ -1,0 +1,20 @@
+# BUG-023: A failed admin-password save still changes the running password
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/web/auth_endpoints.py
++++ b/repeater/web/auth_endpoints.py
+@@
+-            self.config["repeater"]["security"]["admin_password"] = new_password
++            old_password = config_password
++            self.config["repeater"]["security"]["admin_password"] = new_password
+@@
+             else:
++                self.config["repeater"]["security"]["admin_password"] = old_password
+                 cherrypy.response.status = 500
+@@
+         else:
++            self.config["repeater"]["security"]["admin_password"] = old_password

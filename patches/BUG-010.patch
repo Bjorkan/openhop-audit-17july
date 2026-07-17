@@ -1,0 +1,18 @@
+# BUG-010: Rejected multi-field configuration requests leave partial in-memory changes
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/web/api_endpoints.py
++++ b/repeater/web/api_endpoints.py
+@@
+-            # Update fields directly in self.config while validating
++            candidate = copy.deepcopy(self.config)
++            # Validate and write every supplied field into candidate only.
+@@
+-            result = self.config_manager.update_and_save(updates={}, ...)
++            result = self.config_manager.replace_and_save(candidate, ...)
++            if not result["success"]:
++                return self._error(result["error"])

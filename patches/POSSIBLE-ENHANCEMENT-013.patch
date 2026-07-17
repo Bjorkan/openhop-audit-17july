@@ -1,0 +1,21 @@
+# POSSIBLE-ENHANCEMENT-013: Possible enhancement — parse runtime settings once for both initialization and live reload
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/runtime_settings.py
++++ b/repeater/runtime_settings.py
+@@
++@dataclass(frozen=True)
++class RepeaterRuntimeSettings:
++    cache_ttl: int
++    score_threshold: float
++    use_score_for_tx: bool
++    send_advert_interval_hours: float
++    max_flood_hops: int
++
++    @classmethod
++    def from_config(cls, config: dict) -> "RepeaterRuntimeSettings":
++        ...

@@ -1,0 +1,15 @@
+# POSSIBLE-ENHANCEMENT-004: Possible enhancement — create a shared airtime snapshot model
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+# Implementation sketch
+@dataclass(frozen=True)
+class AirtimeSnapshot:
+    window_seconds: float
+    used_ms: float
+    limit_ms: float
+    actual_duty_percent: float
+    budget_used_percent: float

@@ -1,0 +1,17 @@
+# POSSIBLE-ENHANCEMENT-016: Possible enhancement — model self-update work as versioned jobs instead of a shared state string
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/web/update_endpoints.py
++++ b/repeater/web/update_endpoints.py
+@@
++@dataclass
++class UpdateJob:
++    id: int
++    kind: Literal["check", "install"]
++    channel: str
++    state: Literal["running", "complete", "error"]
++    ...

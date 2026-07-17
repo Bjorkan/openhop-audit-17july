@@ -1,0 +1,26 @@
+PASS: duty metric semantic mismatch
+  {"actual_duty_percent": 7.62, "limit_percent": 10.0, "reported_utilization_percent": 76.2}
+PASS: stale live duty limit
+  {"7000ms_allowed": true, "cached_limit_ms": 60000, "configured_limit_ms": 6000}
+PASS: stale airtime radio parameters
+  {"cached_airtime_ms": 97.536, "expected_sf12_airtime_ms": 2301.952}
+PASS: tx power omitted from live configure branch
+  {"configure_calls": [{"bandwidth": 125000, "coding_rate": 8, "frequency": 10, "spreading_factor": 8}], "power_calls": [], "runtime_tx_power": 2}
+PASS: adaptive threshold key mismatch
+  {"configured": {"busy_max": 0.5, "normal_max": 0.2, "quiet_max": 0.05}, "runtime": [1.0, 5.0, 15.0]}
+PASS: advert update false success
+  {"data": {"applied": ["rate_limit=enabled"], "live_update": false, "message": "Advert rate limit settings applied immediately.", "persisted": false, "restart_required": false}, "success": true}
+PASS: config import omits exported sections
+  {"error": "No valid configuration sections found in import", "success": false}
+PASS: config import false success
+  {"message": "Imported 1 config section(s)", "restart_required": false, "saved": false, "sections_updated": ["web"], "success": true}
+PASS: partial mutation on validation failure
+  {"radio_config": {"tx_power": 10}, "response": {"error": "Bandwidth must be one of [7.8, 10.4, 15.6, 20.8, 31.25, 41.7, 62.5, 125.0, 250.0, 500.0] kHz", "success": false}}
+PASS: wall clock jump resets airtime window
+  {"allowed_after_clock_jump": true, "remaining_history": []}
+PASS: quick controls are not persisted
+  {"config_manager_calls": [], "duty_response": {"enabled": false, "success": true}, "mode_response": {"mode": "monitor", "success": true}}
+PASS: UI response-envelope mismatch
+  {"bad_patterns_found": 3}
+
+12 focused checks passed

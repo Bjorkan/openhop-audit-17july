@@ -1,0 +1,18 @@
+# BUG-021: A version result from the old update channel can be shown as the result for a new channel
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/web/update_endpoints.py
++++ b/repeater/web/update_endpoints.py
+@@
+-def _do_check() -> None:
++def _do_check(operation_id: int, channel: str) -> None:
+@@
+-        _state._finish_check(latest)
++        _state._finish_check(operation_id, channel, latest)
+@@
++            if channel != self.channel or operation_id != self._operation_id:
++                return

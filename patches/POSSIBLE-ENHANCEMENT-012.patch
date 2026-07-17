@@ -1,0 +1,15 @@
+# POSSIBLE-ENHANCEMENT-012: Possible enhancement — share one duplicate-grouping helper for normal and raw receive paths
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/engine.py
++++ b/repeater/engine.py
+@@
++    def _group_duplicate_record(self, packet_record: dict) -> None:
++        ...
+@@
+-        # duplicated grouping block
++        self._group_duplicate_record(packet_record)

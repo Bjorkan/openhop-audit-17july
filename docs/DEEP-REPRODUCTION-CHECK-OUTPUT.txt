@@ -1,0 +1,33 @@
+Write queue full (1); dropping frame
+PASS: failed companion delivery is still deduplicated
+  {"bridge_authenticated": false, "bridge_calls": 1, "marked_delivered": true}
+PASS: companion exception blocks colliding local identity
+  {"other_local_candidate_called": false, "raised": "RuntimeError"}
+PASS: invalid packet MQTT suppression flag is ignored
+  {"mqtt_publish_calls": 1, "skip_mqtt_argument": true}
+PASS: raw duplicate path bypasses duplicate cap
+  {"configured_cap": 1, "duplicates_after_record": 2}
+PASS: runtime reload silently changes cache TTL
+  {"after_reload": 60, "before_reload": 3600}
+PASS: deep update helper clobbers sibling configuration
+  {"security_after_update": {"admin_password": "new-password"}}
+PASS: OpenAPI duty-cycle contract is stale
+  {"documented_fields": ["enabled", "on_time", "off_time"], "implemented_fields": ["max_airtime_percent", "enforcement_enabled"]}
+PASS: version check completion overwrites active install state
+  {"install_started_from_checking": true, "state_after_old_check_finished": "idle"}
+PASS: stale update result is attached to a new channel
+  {"checked_channel": "main", "reported_channel": "dev", "reported_latest": "9.9.9-main"}
+PASS: channel endpoint reports success after persistence failure
+  {"persisted": false, "response": {"channel": "dev", "message": "Channel switched to 'dev'. Run /api/update/check to verify.", "success": true}, "runtime_channel": "dev"}
+PASS: failed password save leaves new runtime password active
+  {"response": {"error": "Failed to save password to config file", "success": false}, "response_status": 500, "runtime_password_changed": true}
+PASS: enhanced raw callback is retried after internal failure
+  {"callback_calls": 2, "logs": ["Raw callback error: handler failed after side effect"]}
+PASS: awaitable returned by sync callback wrapper is ignored
+  {"callback_body_ran": false, "callback_coroutines_created": 1}
+PASS: companion message is removed before outbound enqueue succeeds
+  {"message_frame_enqueued": false, "messages_remaining": 0, "outbound_queue_size": 1}
+PASS: async persistence can pop a newer unpersisted message
+  {"message_remaining_in_memory": "first", "queue_count": 1}
+
+15 deeper focused checks passed

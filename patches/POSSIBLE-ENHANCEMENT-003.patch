@@ -1,0 +1,12 @@
+# POSSIBLE-ENHANCEMENT-003: Possible enhancement — centralize frontend API response normalization
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+# Source-level implementation sketch
+export function unwrapApiResult(response) {
+  const body = response?.data ?? response ?? {};
+  return { ok: body.success === true, payload: body.data ?? {}, error: body.error };
+}

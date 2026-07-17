@@ -1,0 +1,13 @@
+# POSSIBLE-ENHANCEMENT-006: Possible enhancement — inject a clock for relative timers
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+# Interface sketch
+class Clock:
+    wall_time = staticmethod(time.time)
+    monotonic = staticmethod(time.monotonic)
+
+# Constructors accept clock: Clock = SYSTEM_CLOCK.

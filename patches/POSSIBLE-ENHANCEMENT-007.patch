@@ -1,0 +1,15 @@
+# POSSIBLE-ENHANCEMENT-007: Possible enhancement — split `APIEndpoints` into domain controllers
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+# Implementation sketch
+class APIEndpoints:
+    def __init__(...):
+        self.config = ConfigAPI(...)
+        self.radio = RadioAPI(...)
+        self.backup = BackupAPI(...)
+
+# Keep compatibility aliases during route migration.

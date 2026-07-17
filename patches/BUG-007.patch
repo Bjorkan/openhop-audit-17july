@@ -1,0 +1,21 @@
+# BUG-007: Advert-rate-limit update reports immediate success after save or live-update failure
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/web/api_endpoints.py
++++ b/repeater/web/api_endpoints.py
+@@
+             result = self.config_manager.update_and_save(...)
++            if not result.get("saved", False):
++                return self._error(result.get("error", "Failed to save configuration"))
++            live_updated = result.get("live_updated", False)
+@@
+-                    "restart_required": False,
+-                    "message": "Advert rate limit settings applied immediately.",
++                    "restart_required": not live_updated,
++                    "message": ("Advert rate limit settings applied immediately."
++                                if live_updated else
++                                "Settings saved. Restart service to apply changes."),

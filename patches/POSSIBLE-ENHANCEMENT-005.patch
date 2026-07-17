@@ -1,0 +1,12 @@
+# POSSIBLE-ENHANCEMENT-005: Possible enhancement — define a radio capability adapter instead of `hasattr` branches
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+# Interface sketch
+class RadioConfigurable(Protocol):
+    def apply_radio_config(self, config: RadioConfigSnapshot) -> ApplyResult: ...
+
+# ApplyResult should enumerate applied_fields, unsupported_fields, and failures.

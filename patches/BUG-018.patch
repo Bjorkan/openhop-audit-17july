@@ -1,0 +1,26 @@
+# BUG-018: `update_nested()` replaces sibling configuration instead of updating one deep value
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/config_manager.py
++++ b/repeater/config_manager.py
+@@
+     def update_nested(self, path: str, value: Any, live_update: bool = True):
+-        # Build a partial nested dictionary and shallow-merge the section.
++        candidate = copy.deepcopy(self.config)
++        parts = path.split(".")
++        target = candidate
++        for part in parts[:-1]:
++            child = target.setdefault(part, {})
++            if not isinstance(child, dict):
++                raise ValueError(f"Cannot descend through non-mapping key: {part}")
++            target = child
++        target[parts[-1]] = value
++        return self.replace_and_save(
++            candidate,
++            live_update=live_update,
++            live_update_sections=[parts[0]] if live_update else None,
++        )

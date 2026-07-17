@@ -1,0 +1,27 @@
+# BUG-014: A failing companion bridge can shadow another local identity with the same destination hash
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/packet_router.py
++++ b/repeater/packet_router.py
+@@
+         consumed = False
+         if has_companion:
+-            bridge_result = await companion_bridges[dest_hash].process_received_packet(packet)
+-            if bridge_result.authenticated:
+-                consumed = True
++            consumed = await self._fan_out_to_bridges(
++                packet,
++                {dest_hash: companion_bridges[dest_hash]},
++                context="local-candidate",
++            )
+         if helper and (has_local_identity or not has_companion):
+-            if await getattr(helper, process_method_name)(packet):
+-                consumed = True
++            try:
++                consumed = bool(await getattr(helper, process_method_name)(packet)) or consumed
++            except Exception as exc:
++                logger.debug("Local identity candidate failed: %s", exc)

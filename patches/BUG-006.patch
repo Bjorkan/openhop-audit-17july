@@ -1,0 +1,16 @@
+# BUG-006: Adaptive advert thresholds saved by the UI are ignored
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/handler_helpers/advert.py
++++ b/repeater/handler_helpers/advert.py
+@@
+-        self._threshold_normal = float(thresholds.get("normal", 1.0))
+-        self._threshold_busy = float(thresholds.get("busy", 5.0))
+-        self._threshold_congested = float(thresholds.get("congested", 15.0))
++        self._threshold_normal = float(thresholds.get("quiet_max", thresholds.get("normal", 1.0)))
++        self._threshold_busy = float(thresholds.get("normal_max", thresholds.get("busy", 5.0)))
++        self._threshold_congested = float(thresholds.get("busy_max", thresholds.get("congested", 15.0)))

@@ -1,0 +1,22 @@
+# BUG-004: Live radio changes leave airtime estimation on the old modulation
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/airtime.py
++++ b/repeater/airtime.py
+@@
++    def reload_radio_config(self) -> None:
++        radio = self.config.get("radio", {})
++        self.spreading_factor = int(radio.get("spreading_factor", 7))
++        self.bandwidth = int(radio.get("bandwidth", 125000))
++        self.coding_rate = int(radio.get("coding_rate", 5))
++        self.preamble_length = int(radio.get("preamble_length", 8))
++
+--- a/repeater/config_manager.py
++++ b/repeater/config_manager.py
+@@
+             self._sync_repeater_handler_radio_config(radio_cfg)
++            self.daemon.repeater_handler.airtime_mgr.reload_radio_config()

@@ -1,0 +1,17 @@
+# POSSIBLE-ENHANCEMENT-008: Possible enhancement — write configuration atomically and keep a last-known-good copy
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This file may be incomplete where only compiled frontend assets were supplied.
+
+--- a/repeater/config_manager.py
++++ b/repeater/config_manager.py
+@@
+-            with open(self.config_path, "w") as f:
++            tmp_path = f"{self.config_path}.tmp"
++            with open(tmp_path, "w", encoding="utf-8") as f:
+                 yaml.safe_dump(...)
++                f.flush()
++                os.fsync(f.fileno())
++            os.replace(tmp_path, self.config_path)

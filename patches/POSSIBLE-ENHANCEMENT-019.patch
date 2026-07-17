@@ -1,0 +1,15 @@
+# POSSIBLE-ENHANCEMENT-019: Possible enhancement — generate OpenAPI request schemas from the same models used by endpoints
+# Audit date: 2026-07-17
+# Classification: Possible enhancement
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/web/models.py
++++ b/repeater/web/models.py
+@@
++class DutyCycleUpdate(BaseModel):
++    max_airtime_percent: Annotated[float, Field(ge=0.1, le=100.0)] | None = None
++    enforcement_enabled: bool | None = None
++
++# CI: export models to OpenAPI and compare with repeater/web/openapi.yaml

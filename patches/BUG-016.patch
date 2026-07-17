@@ -1,0 +1,23 @@
+# BUG-016: The raw duplicate path bypasses the configured per-packet duplicate cap
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/repeater/engine.py
++++ b/repeater/engine.py
+@@
++    def _attach_duplicate_or_append(self, packet_record: dict) -> None:
++        prev = self._recent_hash_index.get(packet_record["packet_hash"])
++        if prev is None:
++            self._append_recent_packet(packet_record)
++            return
++        duplicates = prev.setdefault("duplicates", [])
++        if len(duplicates) < self.max_duplicates_per_packet:
++            duplicates.append(packet_record)
++        else:
++            prev["duplicates_omitted"] = int(prev.get("duplicates_omitted", 0)) + 1
+@@
+-                prev_pkt["duplicates"].append(packet_record)
++                self._attach_duplicate_or_append(packet_record)

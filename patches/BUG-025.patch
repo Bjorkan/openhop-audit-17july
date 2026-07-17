@@ -1,0 +1,26 @@
+# BUG-025: Callbacks returning awaitables from synchronous wrappers are silently not awaited
+# Audit date: 2026-07-17
+# Classification: Confirmed defect
+#
+# LLM-GENERATED IMPLEMENTATION SKETCH — REVIEW AND TEST BEFORE USE.
+# This patch communicates the intended change surface and may require adaptation.
+
+--- a/src/openhop_core/node/dispatcher.py
++++ b/src/openhop_core/node/dispatcher.py
+@@
++    @staticmethod
++    async def _call_callback(callback, *args):
++        result = callback(*args)
++        if inspect.isawaitable(result):
++            await result
+@@
+-        if inspect.iscoroutinefunction(cb):
+-            await cb(pkt)
+-        else:
+-            cb(pkt)
++        await self._call_callback(cb, pkt)
+--- a/src/openhop_core/companion/base_callbacks.py
++++ b/src/openhop_core/companion/base_callbacks.py
+@@
+-                if inspect.iscoroutinefunction(callback): ...
++                await self._call_legacy(callback, *args)
