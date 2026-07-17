@@ -2,10 +2,12 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
-| Severity | **Medium** |
+| Severity | **Low** |
 | Confidence | **Confirmed** |
 | Area | Configuration helper semantics |
 | Components | OpenHop Repeater |

@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
@@ -32,7 +34,7 @@ Validate into a deep copy or typed request model, then commit the full change on
 
 Focused check sent `{tx_power: 10, bandwidth: 12345}`. The response was failure, while `config["radio"]["tx_power"]` had already changed from 2 to 10.
 
-See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
+See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
 
 ## Implementation plan
 

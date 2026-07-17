@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-021-a-version-result-from-the-old-update-channel-can-be-shown-as-the-result-for-a-new-channel.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|

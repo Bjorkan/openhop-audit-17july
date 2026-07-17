@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
@@ -32,7 +34,7 @@ Map `quiet_max → normal boundary`, `normal_max → busy boundary`, and `busy_m
 
 Focused check supplied 0.05/0.20/0.50 through the documented keys and observed runtime thresholds of 1.0/5.0/15.0.
 
-See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
+See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
 
 ## Implementation plan
 

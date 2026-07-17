@@ -1,6 +1,8 @@
-# BUG-011 — GPS clock corrections can reset rolling airtime and rate-limit windows
+# BUG-011 — GPS wall-clock corrections can invalidate rolling airtime and rate-limit windows
 
 [← Audit index](../README.md)
+
+> Reverification verdict: **Confirmed against the supplied snapshot.**
 
 | Field | Value |
 |---|---|
@@ -32,7 +34,7 @@ Convert AirtimeManager, advert limiter and other in-process cooldowns to `time.m
 
 Focused check placed a full airtime budget at wall time 100 and simulated a forward correction to 1000; the history was discarded and another full budget was allowed immediately.
 
-See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
+See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
 
 ## Implementation plan
 

@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-020-an-update-install-can-overlap-a-version-check-and-be-reported-idle-while-still-running.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|

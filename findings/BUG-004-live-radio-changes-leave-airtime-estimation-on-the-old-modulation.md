@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
@@ -32,7 +34,7 @@ Reload airtime parameters only after hardware configuration succeeds; on failure
 
 Focused check changed SF7 to SF12. The manager kept returning 97.536 ms for a 50-byte packet while the shared estimator returned 2,301.952 ms for SF12.
 
-See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
+See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
 
 ## Implementation plan
 

@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-025-callbacks-returning-awaitables-from-synchronous-wrappers-are-silently-not-awaited.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
@@ -20,7 +21,7 @@ Fix the confirmed defect: Callback invocation should always call once, inspect t
 
 ## Current behavior to preserve in the reproduction
 
-This affects callable objects with async `__call__`, decorated async functions whose wrapper is synchronous, partial/proxy functions and intentionally synchronous adapters returning a coroutine. Type annotations allow `Awaitable | None`, and another helper in the same module already implements the correct “call, then inspect result” pattern.
+This affects callable objects with async `__call__`, decorated async functions whose wrapper is synchronous, sync wrappers and callable objects and intentionally synchronous adapters returning a coroutine. Type annotations allow `Awaitable | None`, and another helper in the same module already implements the correct “call, then inspect result” pattern.
 
 ## Required outcome
 

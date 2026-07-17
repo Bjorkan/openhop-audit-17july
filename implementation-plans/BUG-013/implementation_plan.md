@@ -3,10 +3,11 @@
 [← Finding](../../findings/BUG-013-failed-companion-deliveries-are-recorded-as-successfully-delivered.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
-| Finding | **Failed companion deliveries are recorded as successfully delivered** |
+| Finding | **PATH and protocol-response packets are deduplicated even when no companion authenticates them** |
 | Classification | **Confirmed defect** |
 | Severity | **High** |
 | Confidence | **Confirmed** |

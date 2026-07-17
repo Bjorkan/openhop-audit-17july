@@ -3,12 +3,13 @@
 [← Finding](../../findings/BUG-018-deep-update-nested-replaces-sibling-configuration-instead-of-updating-one-value.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
 | Finding | **`update_nested()` replaces sibling configuration instead of updating one deep value** |
 | Classification | **Confirmed defect** |
-| Severity | **Medium** |
+| Severity | **Low** |
 | Confidence | **Confirmed** |
 | Area | Configuration helper semantics |
 | Components | OpenHop Repeater |

@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
@@ -32,7 +34,7 @@ Prefer routing both endpoints through the transactional config helper and return
 
 Focused check called both endpoints and observed zero `ConfigManager` calls. Static bundle inspection found the terminal forcibly setting `persisted=true` on the returned object.
 
-See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
+See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
 
 ## Implementation plan
 

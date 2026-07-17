@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Factual premise confirmed; implementation remains optional.**
+
 | Field | Value |
 |---|---|
 | Classification | **Possible enhancement** |
@@ -14,7 +16,7 @@
 
 ## TL;DR
 
-Configuration names, defaults, ranges and units are currently repeated in several layers and have already drifted.
+Configuration names, defaults, ranges and units are currently repeated in several layers and have already drifted. OpenAPI request schemas should be generated from the same typed models rather than maintained as a separate handwritten contract.
 
 ## What happens now
 

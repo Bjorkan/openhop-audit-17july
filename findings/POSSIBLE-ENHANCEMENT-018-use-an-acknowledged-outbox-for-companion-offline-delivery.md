@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Factual premise confirmed; implementation remains optional.**
+
 | Field | Value |
 |---|---|
 | Classification | **Possible enhancement** |
@@ -14,11 +16,11 @@
 
 ## TL;DR
 
-Message ownership is split between an in-memory FIFO, SQLite rows and a non-acknowledging transport queue.
+Message ownership is split between an in-memory FIFO, SQLite rows and a non-acknowledging transport queue. Destructive pop and queue-full shedding are documented current semantics, but stable identities and reserve/commit states would support a stronger delivery guarantee.
 
 ## What happens now
 
-Moves between layers are expressed as destructive pop operations, making queue-full, disconnect and concurrency cases difficult to reason about.
+Moves between layers are expressed as destructive pop operations. This matches the documented “pop next queued message” and transport-shedding behavior, but makes queue-full, disconnect, retry and concurrency outcomes difficult to reason about.
 
 ## Expected behaviour / proposed direction
 

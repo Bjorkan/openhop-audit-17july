@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Confirmed against the supplied snapshot.**
+
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
@@ -18,7 +20,7 @@ Multiple callback helpers decide whether to await by checking `inspect.iscorouti
 
 ## What happens now
 
-This affects callable objects with async `__call__`, decorated async functions whose wrapper is synchronous, partial/proxy functions and intentionally synchronous adapters returning a coroutine. Type annotations allow `Awaitable | None`, and another helper in the same module already implements the correct “call, then inspect result” pattern.
+This affects callable objects with async `__call__`, decorated async functions whose outer wrapper is synchronous, and intentionally synchronous adapters returning an awaitable. Type annotations allow `Awaitable | None`, and another helper in the same module already implements the correct “call, then inspect result” pattern.
 
 ## Expected behaviour / proposed direction
 

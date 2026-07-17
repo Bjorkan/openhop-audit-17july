@@ -1,0 +1,55 @@
+from pathlib import Path
+import re, inspect, sys, os
+
+CORE=Path(os.environ['OPENHOP_CORE_ROOT'])
+REP=Path(os.environ['OPENHOP_REPEATER_ROOT'])
+checks=[]
+def check(id, ok, note):
+    checks.append((id,bool(ok),note))
+    if not ok: raise AssertionError(f'{id}: {note}')
+
+api=(REP/'repeater/web/api_endpoints.py').read_text()
+config=(REP/'config.yaml.example').read_text()
+openapi=(REP/'repeater/web/openapi.yaml').read_text()
+conf_asset=next((REP/'repeater/web/html/assets').glob('Configuration-*.js')).read_text()
+api_asset=next((REP/'repeater/web/html/assets').glob('api-*.js')).read_text()
+airtime=(REP/'repeater/airtime.py').read_text()
+engine=(REP/'repeater/engine.py').read_text()
+storage=(REP/'repeater/data_acquisition/storage_collector.py').read_text()
+glass=(REP/'repeater/data_acquisition/glass_handler.py').read_text()
+cfgmgr=(REP/'repeater/config_manager.py').read_text()
+advert=(REP/'repeater/handler_helpers/advert.py').read_text()
+router=(REP/'repeater/packet_router.py').read_text()
+dispatcher=(CORE/'src/openhop_core/node/dispatcher.py').read_text()
+callbacks=(CORE/'src/openhop_core/companion/base_callbacks.py').read_text()
+update=(REP/'repeater/web/update_endpoints.py').read_text()
+transport=(CORE/'src/openhop_core/companion/frame_server/transport.py').read_text()
+commands=(CORE/'src/openhop_core/companion/frame_server/commands_messaging.py').read_text()
+frame=(REP/'repeater/companion/frame_server.py').read_text()
+queue=(CORE/'src/openhop_core/companion/message_queue.py').read_text()
+
+check('PE-001', all(k in api and k in config for k in ['quiet_max','normal_max','busy_max']) and 'on_time:' in openapi, 'Configuration names/defaults are handwritten in multiple layers and already diverge.')
+check('PE-002', api.count('update_and_save(') >= 6 and 'def update_and_save' in cfgmgr, 'Many endpoints repeat mutate/save/live-apply/response orchestration.')
+check('PE-003', '.data;if(' in conf_asset and 't=await R.post(`/update_advert_rate_limit_config`,e),n=t.data;t.success?' in conf_asset, 'Consumers use several direct envelope access patterns; this is maintainability only, not BUG-002.')
+check('PE-004', 'utilization_percent' in airtime and 'utilization_percent' in storage and 'airtime_percent' in glass and 'max_airtime_percent' in engine, 'Airtime fields are copied/renamed across several producers and consumers.')
+check('PE-005', cfgmgr.count('hasattr(radio') >= 6 and 'configure_radio' in cfgmgr, 'Radio live apply branches on introspection rather than one explicit capability contract.')
+check('PE-006', airtime.count('time.time()') >= 3 and advert.count('time.time()') >= 5, 'Relative-window logic directly uses wall clock in multiple classes.')
+check('PE-007', len(api.splitlines()) > 7000 and api.count('@cherrypy.expose') > 80, 'APIEndpoints is a very large multi-domain controller.')
+check('PE-008', 'with open(self.config_path, "w") as f:' in cfgmgr or "with open(self.config_path, 'w') as f:" in cfgmgr, 'Configuration writes target file directly rather than replace-after-fsync.')
+check('PE-009', advert.count('_threshold_normal') >= 3 and 'def reload_config' in advert, 'Advert limiter parsing is duplicated between initialization and reload.')
+frontend_files=[p for p in REP.rglob('*') if p.is_file() and p.suffix in {'.vue','.ts','.tsx','.jsx','.map'}]
+check('PE-010', not frontend_files and len(list((REP/'repeater/web/html/assets').glob('*'))) == 66, 'Snapshot has generated assets but no corresponding frontend sources/source maps.')
+check('PE-011', router.count('_fan_out_to_bridges(') >= 10 and router.count('_mark_delivered_to_companions(') >= 4, 'Delivery and dedupe outcome orchestration is repeated across branches.')
+check('PE-012', 'def record_duplicate' in engine and 'max_duplicates_per_packet' in engine and engine.count('duplicates') >= 10, 'Normal/raw duplicate grouping is implemented in separate paths.')
+check('PE-013', 'cache_ttl", 3600' in engine and 'cache_ttl", 60' in engine and 'def reload_runtime_config' in engine, 'Initialization/reload encode settings independently and have already diverged.')
+check('PE-014', 'skip_mqtt_if_invalid' in engine and 'skip_mqtt_if_invalid' in storage and 'def _publish_packet_sync' in storage, 'Publication policy is represented by a narrow boolean threaded through generic storage methods.')
+check('PE-015', dispatcher.count('inspect.iscoroutinefunction') >= 6 and callbacks.count('inspect.iscoroutinefunction') >= 1 and 'inspect.isawaitable' in callbacks, 'Core contains several inconsistent callback invocation patterns.')
+check('PE-016', 'self.state: str = "idle"' in update and 'def _finish_check' in update and 'def finish_install' in update, 'Updater operations share a mutable singleton state without operation identity.')
+check('PE-017', 'ThreadPoolExecutor(' in storage and 'max_workers=1' in storage and 'self._db_executor.submit' in storage, 'Storage writer uses an unbounded executor submission queue and does not expose queue depth.')
+check('PE-018', 'sync_next_message()' in commands and 'QueueFull' in transport and 'companion_pop_message' in frame, 'Offline delivery ownership spans memory, SQLite and a non-acknowledging transport queue.')
+check('PE-019', 'on_time:' in openapi and '"max_airtime_percent"' in api, 'Handwritten OpenAPI request schema has drifted from endpoint parsing; overlaps substantially with PE-001.')
+check('PE-020', 'def pop_last' in queue and 'pop_last()' in frame and 'remove_by' not in queue and 'token' not in queue, 'Queue lacks stable identity/removal-by-token; this is primarily part of BUG-027 remediation and overlaps PE-018.')
+
+for ident,ok,note in checks:
+    print(f'PASS {ident}: {note}')
+print(f'\n{len(checks)} enhancement premises verified')

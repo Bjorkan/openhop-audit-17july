@@ -1,6 +1,8 @@
-# BUG-013 — Failed companion deliveries are recorded as successfully delivered
+# BUG-013 — PATH and protocol-response packets are deduplicated even when no companion authenticates them
 
 [← Audit index](../README.md)
+
+> Reverification verdict: **Confirmed against the supplied snapshot.**
 
 | Field | Value |
 |---|---|

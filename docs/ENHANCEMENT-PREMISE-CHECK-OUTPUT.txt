@@ -1,0 +1,22 @@
+PASS PE-001: Configuration names/defaults are handwritten in multiple layers and already diverge.
+PASS PE-002: Many endpoints repeat mutate/save/live-apply/response orchestration.
+PASS PE-003: Consumers use several direct envelope access patterns; this is maintainability only, not BUG-002.
+PASS PE-004: Airtime fields are copied/renamed across several producers and consumers.
+PASS PE-005: Radio live apply branches on introspection rather than one explicit capability contract.
+PASS PE-006: Relative-window logic directly uses wall clock in multiple classes.
+PASS PE-007: APIEndpoints is a very large multi-domain controller.
+PASS PE-008: Configuration writes target file directly rather than replace-after-fsync.
+PASS PE-009: Advert limiter parsing is duplicated between initialization and reload.
+PASS PE-010: Snapshot has generated assets but no corresponding frontend sources/source maps.
+PASS PE-011: Delivery and dedupe outcome orchestration is repeated across branches.
+PASS PE-012: Normal/raw duplicate grouping is implemented in separate paths.
+PASS PE-013: Initialization/reload encode settings independently and have already diverged.
+PASS PE-014: Publication policy is represented by a narrow boolean threaded through generic storage methods.
+PASS PE-015: Core contains several inconsistent callback invocation patterns.
+PASS PE-016: Updater operations share a mutable singleton state without operation identity.
+PASS PE-017: Storage writer uses an unbounded executor submission queue and does not expose queue depth.
+PASS PE-018: Offline delivery ownership spans memory, SQLite and a non-acknowledging transport queue.
+PASS PE-019: Handwritten OpenAPI request schema has drifted from endpoint parsing; overlaps substantially with PE-001.
+PASS PE-020: Queue lacks stable identity/removal-by-token; this is primarily part of BUG-027 remediation and overlaps PE-018.
+
+20 enhancement premises verified

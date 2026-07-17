@@ -3,6 +3,7 @@
 [← Finding](../../findings/POSSIBLE-ENHANCEMENT-012-share-one-duplicate-grouping-helper-for-normal-and-raw-receive-paths.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **factual premise confirmed; implementation remains optional**.
 
 | Field | Value |
 |---|---|

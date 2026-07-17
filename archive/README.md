@@ -1,3 +1,4 @@
 # Archive
 
-This fresh 17 July 2026 audit does not import or archive findings from the 13 July audit. The directory is retained only to preserve the organisational layout.
+- `retracted-reclassified-and-merged/` contains the false-positive `BUG-002`, reclassified `BUG-026`, merged enhancement reports 019/020 and their former plans.
+- `superseded-verification-material/` contains the earlier reproduction scripts and notes. They are not active evidence because they included a false-positive premise and did not account for documented semantics in former `BUG-026`.

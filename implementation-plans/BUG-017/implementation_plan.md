@@ -3,12 +3,13 @@
 [← Finding](../../findings/BUG-017-live-reload-can-silently-reduce-the-packet-deduplication-window-from-one-hour-to-one-minute.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
-| Finding | **Live reload can silently reduce the packet deduplication window from one hour to one minute** |
+| Finding | **Live reload can use a one-minute deduplication window when `cache_ttl` is absent or below the startup minimum** |
 | Classification | **Confirmed defect** |
-| Severity | **High** |
+| Severity | **Medium** |
 | Confidence | **Confirmed** |
 | Area | Runtime configuration / packet deduplication |
 | Components | OpenHop Repeater |
@@ -56,6 +57,9 @@ The listed paths are the minimum evidence/change surface identified by the audit
 - OpenHop Repeater: `tests/test_engine.py`, `tests/test_flood_loop_dedup.py`
 
 ### Required test cases
+
+- [ ] Reload a configuration with missing `cache_ttl` and prove it preserves the same effective default as startup.
+- [ ] Reload an explicit value below the startup minimum (for example 120 seconds) and prove startup and reload apply the same validation/clamp policy.
 
 - [ ] Add a focused regression test that reproduces the current defect before the implementation and fails for the documented reason.
 - [ ] Add a success-path test proving the effective runtime state, persisted state and API/UI-visible state agree after the change where those layers are involved.

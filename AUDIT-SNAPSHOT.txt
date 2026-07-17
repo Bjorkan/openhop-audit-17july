@@ -1,37 +1,33 @@
-OpenHop internal logic and consistency audit snapshot
+OpenHop internal logic and consistency audit snapshot — reverified edition
 Generated: 2026-07-17 (Europe/Stockholm)
 
 INPUT ZIP SHA256
-Core        bd61d337e9f81434fc9579b0f3f072e30b90904e11e33fea4a425c0d374ea51b  openhop_core-fix-all-the-things-core(5).zip
-Repeater    270aff51154b8ce80f2907073362bc0bb95d3cc687189835b94322c8b2634a6e  openhop_repeater-fix-all-the-things(5).zip
-Layout only 0784fc5819e7b16f615d258ce733842c81266922282c5c25d53ff77178616474  openhop-audit-13july(1).zip
+Core           bd61d337e9f81434fc9579b0f3f072e30b90904e11e33fea4a425c0d374ea51b  openhop_core-fix-all-the-things-core(5).zip
+Repeater       270aff51154b8ce80f2907073362bc0bb95d3cc687189835b94322c8b2634a6e  openhop_repeater-fix-all-the-things(5).zip
+Layout only    0784fc5819e7b16f615d258ce733842c81266922282c5c25d53ff77178616474  openhop-audit-13july(1).zip
+Prior audit    aa09dbeba1ecd5ff448079f3307b83a0f08b80f3a34e8ca021fb89cea1d28486  openhop-internal-audit-17july-2026-implementation-plans.zip
 
 SOURCE IDENTIFIERS
-Core package version:       1.1.3.dev7
-Repeater version source:    dynamic setuptools_scm; no .git metadata or generated _version.py supplied
-Core source files/lines:    88 / 30625
-Repeater source files/lines:68 / 36847
-Compiled web assets:        66
-Frontend source maps:       0
-Frontend .vue/.ts/.tsx:     0
+Core package version:        1.1.3.dev7
+Repeater version source:     dynamic setuptools_scm; no .git metadata or generated _version.py supplied
+Core source files/lines:     140 / 54442
+Repeater source files/lines: 122 / 59205
+Compiled web assets:         66
+Frontend source maps:        0
+Frontend .vue/.ts/.tsx:      0
 
-TEST RESULTS
-Core full suite:            1272 passed
-Repeater full suite:        1222 passed
-Focused audit checks:       27 passed (12 first-pass + 15 deep-review)
-Compileall:                 passed for both trees
-OpenAPI contract:           passed
+REVERIFICATION RESULTS
+Core full suite:             1272 passed
+Repeater full suite:         1222 passed
+Independent checks:          28 passed
+Enhancement premise checks:  20 passed
+Quoted evidence lines:       4371 checked, 0 mismatches
 
-FINAL CLASSIFICATION
-Confirmed defects:          27
-Possible enhancements:      20
-Prior findings imported:    0
-
-DEEP REVIEW
-Second pass areas:            companion routing, queues, callback dispatch, updater state, publication policy, nested config
-Source snapshots changed:     no
-
-IMPLEMENTATION PLANS
-Confirmed defect plans:      27
-Possible enhancement plans:  20
-Former patch files:           removed
+FINAL ACTIVE CLASSIFICATION
+Confirmed defects:           25
+Retracted defect claims:     1
+Reclassified defect claims:  1
+Possible enhancements:       18
+Merged enhancement reports:  2
+Active implementation plans: 43
+Former patch files:          removed

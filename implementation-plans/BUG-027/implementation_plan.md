@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-027-concurrent-message-persistence-can-remove-a-different-newer-message-from-memory.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
@@ -32,15 +33,14 @@ Assign queue entry IDs/tokens and remove by identity after successful persistenc
 |---|---|---|
 | OpenHop Repeater | `repeater/companion/frame_server.py` | Evidence lines 69–99 |
 | OpenHop Core | `src/openhop_core/companion/message_queue.py` | Evidence lines 32–61 |
-| OpenHop Core | `src/openhop_core/companion/frame_server/push.py` | Evidence lines 58–110 |
-| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 347–358 |
+| OpenHop Core | `src/openhop_core/companion/base_events.py` | Verify queue insertion and persistence callback ordering |
 
 The listed paths are the minimum evidence/change surface identified by the audit. Before editing, search the repositories for the affected symbols, field names and response keys to find indirect consumers, tests and generated artifacts.
 
 ## Implementation work packages
 
-1. Give every in-memory queue entry a stable identity/token at insertion time.
-2. Pass that identity through asynchronous persistence and remove exactly that entry after successful durable write; never remove by current queue position.
+1. Give every in-memory queue entry a stable identity/token at insertion time; duplicate payloads must still receive distinct identities.
+2. Pass that identity through `MessageEvent` / `ChannelMessageEvent` persistence callbacks and remove exactly that entry after successful durable write; never remove by current queue position.
 3. Serialize mutation or protect the queue/index with the appropriate lock so producer and persistence completion cannot race.
 4. Consider consolidating memory and SQLite into a transactional outbox to avoid two sources of truth.
 

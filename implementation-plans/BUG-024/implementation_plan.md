@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-024-an-enhanced-raw-callback-is-invoked-twice-when-its-handler-raises.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|

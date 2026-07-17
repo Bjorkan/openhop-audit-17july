@@ -2,6 +2,8 @@
 
 [← Audit index](../README.md)
 
+> Reverification verdict: **Factual premise confirmed; implementation remains optional.**
+
 | Field | Value |
 |---|---|
 | Classification | **Possible enhancement** |

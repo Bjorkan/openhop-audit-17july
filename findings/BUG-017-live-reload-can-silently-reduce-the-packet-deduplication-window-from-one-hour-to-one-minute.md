@@ -1,11 +1,13 @@
-# BUG-017 — Live reload can silently reduce the packet deduplication window from one hour to one minute
+# BUG-017 — Live reload can use a one-minute deduplication window when `cache_ttl` is absent or below the startup minimum
 
 [← Audit index](../README.md)
+
+> Reverification verdict: **Confirmed against the supplied snapshot.**
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
-| Severity | **High** |
+| Severity | **Medium** |
 | Confidence | **Confirmed** |
 | Area | Runtime configuration / packet deduplication |
 | Components | OpenHop Repeater |

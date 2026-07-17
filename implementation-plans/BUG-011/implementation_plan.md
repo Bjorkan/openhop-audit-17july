@@ -3,10 +3,11 @@
 [← Finding](../../findings/BUG-011-gps-clock-corrections-can-reset-rolling-airtime-and-rate-limit-windows.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
-| Finding | **GPS clock corrections can reset rolling airtime and rate-limit windows** |
+| Finding | **GPS wall-clock corrections can invalidate rolling airtime and rate-limit windows** |
 | Classification | **Confirmed defect** |
 | Severity | **High** |
 | Confidence | **Confirmed** |

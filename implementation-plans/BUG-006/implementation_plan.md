@@ -3,6 +3,7 @@
 [← Finding](../../findings/BUG-006-adaptive-advert-thresholds-saved-by-the-ui-are-ignored.md) · [← Audit index](../../README.md)
 
 > This is a planning document, not a ready-to-apply patch. Revalidate line numbers and surrounding code against the branch being changed.
+> Reverification status: **confirmed against the supplied snapshot**.
 
 | Field | Value |
 |---|---|
