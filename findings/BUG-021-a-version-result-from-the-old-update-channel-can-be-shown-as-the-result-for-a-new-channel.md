@@ -32,11 +32,12 @@ Pass `(operation_id, channel)` into the worker and validate both at completion, 
 
 The deeper focused check captured `main`, changed state to `dev`, then completed a simulated `main` check. Status contained channel `dev` with latest version `9.9.9-main`.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-021.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-021/implementation_plan.md)
+
 
 ## Source references and excerpts
 

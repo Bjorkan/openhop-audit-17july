@@ -34,11 +34,12 @@ Focused check placed a full airtime budget at wall time 100 and simulated a forw
 
 See [`docs/REPRODUCTION-CHECKS.md`](../docs/REPRODUCTION-CHECKS.md) and the executable check script.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the real frontend source where compiled assets are involved, add regression tests, and review hardware/runtime implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-011.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-011/implementation_plan.md)
+
 
 ## Source references and excerpts
 

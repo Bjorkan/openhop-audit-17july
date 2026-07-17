@@ -32,11 +32,12 @@ Return and propagate a structured delivery result. Mark the logical packet deliv
 
 The deeper focused check used a bridge returning `authenticated=False`. Fan-out reported failure, but the current caller sequence still made `_was_delivered_to_companions()` return true.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-013.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-013/implementation_plan.md)
+
 
 ## Source references and excerpts
 

@@ -30,3 +30,8 @@ Prior findings imported:    0
 DEEP REVIEW
 Second pass areas:            companion routing, queues, callback dispatch, updater state, publication policy, nested config
 Source snapshots changed:     no
+
+IMPLEMENTATION PLANS
+Confirmed defect plans:      27
+Possible enhancement plans:  20
+Former patch files:           removed

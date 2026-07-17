@@ -28,11 +28,12 @@ Serialize and fsync a temporary file in the same directory, validate it, then `o
 
 Provides atomic replacement and recovery without changing the public configuration format.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the real frontend source where compiled assets are involved, add regression tests, and review hardware/runtime implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/POSSIBLE-ENHANCEMENT-008.patch)
+[Open `implementation_plan.md`](../implementation-plans/POSSIBLE-ENHANCEMENT-008/implementation_plan.md)
+
 
 ## Source references and excerpts
 

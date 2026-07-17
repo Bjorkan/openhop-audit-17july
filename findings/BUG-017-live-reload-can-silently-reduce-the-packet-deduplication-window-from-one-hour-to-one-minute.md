@@ -32,11 +32,12 @@ Create one `parse_runtime_repeater_settings()` function and assign its immutable
 
 The deeper focused check started with `cache_ttl=3600`, reloaded an empty repeater section and observed `cache_ttl=60`.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-017.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-017/implementation_plan.md)
+
 
 ## Source references and excerpts
 

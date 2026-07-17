@@ -32,11 +32,12 @@ Traverse a copied config to the target leaf, assign there, and commit transactio
 
 The deeper focused check updated only `repeater.security.admin_password`; the resulting security mapping contained only that key.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-018.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-018/implementation_plan.md)
+
 
 ## Source references and excerpts
 

@@ -32,11 +32,12 @@ Introduce one shared `_invoke_maybe_awaitable(callback, *args)` helper and use i
 
 The deeper focused check passed a normal function returning a coroutine. `_invoke_callback()` created the coroutine but its body never ran.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-025.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-025/implementation_plan.md)
+
 
 ## Source references and excerpts
 

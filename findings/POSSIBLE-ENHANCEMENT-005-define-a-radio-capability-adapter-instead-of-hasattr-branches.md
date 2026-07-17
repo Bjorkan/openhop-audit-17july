@@ -28,11 +28,12 @@ Define a common `apply_radio_config(snapshot) -> ApplyResult` interface with exp
 
 Makes partial hardware application impossible to mistake for full success and simplifies ConfigManager.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the real frontend source where compiled assets are involved, add regression tests, and review hardware/runtime implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/POSSIBLE-ENHANCEMENT-005.patch)
+[Open `implementation_plan.md`](../implementation-plans/POSSIBLE-ENHANCEMENT-005/implementation_plan.md)
+
 
 ## Source references and excerpts
 

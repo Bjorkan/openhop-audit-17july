@@ -32,11 +32,12 @@ Inspect/bind the callable signature before the call, or register callback capabi
 
 The deeper focused check used a variadic callback that increments a counter and raises only on the enhanced call. The current helper invoked it twice.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-024.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-024/implementation_plan.md)
+
 
 ## Source references and excerpts
 

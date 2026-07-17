@@ -28,11 +28,12 @@ Build a validated immutable `RepeaterRuntimeSettings` snapshot from config and a
 
 Makes startup/reload parity automatic, centralizes migration warnings and supports table-driven tests for every field.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/POSSIBLE-ENHANCEMENT-013.patch)
+[Open `implementation_plan.md`](../implementation-plans/POSSIBLE-ENHANCEMENT-013/implementation_plan.md)
+
 
 ## Source references and excerpts
 

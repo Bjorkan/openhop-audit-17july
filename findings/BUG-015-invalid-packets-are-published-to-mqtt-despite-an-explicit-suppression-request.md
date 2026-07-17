@@ -32,11 +32,12 @@ Guard only the MQTT call with `if not skip_mqtt`. Keep Glass/WebSocket behavior 
 
 The deeper focused check called `_publish_packet_sync(..., skip_mqtt=True)` and observed one MQTT publication call.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-015.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-015/implementation_plan.md)
+
 
 ## Source references and excerpts
 

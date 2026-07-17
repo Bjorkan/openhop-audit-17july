@@ -32,11 +32,12 @@ Make `_save_channel()` return a boolean or raise; persist atomically before chan
 
 The deeper focused check forced `_save_channel()` to fail. The endpoint still returned `success=true` and changed the runtime channel.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-022.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-022/implementation_plan.md)
+
 
 ## Source references and excerpts
 

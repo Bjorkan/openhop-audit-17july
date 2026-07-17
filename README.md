@@ -1,6 +1,6 @@
-# OpenHop Internal Logic and Consistency Audit — 17 July 2026 — Deep Review
+# OpenHop Internal Logic and Consistency Audit — 17 July 2026 — Deep Review with Implementation Plans
 
-This is a fresh audit of the supplied OpenHop Core and OpenHop Repeater snapshots. It focuses on internal behaviour that differs from what configuration, telemetry or the web UI claims, plus maintainability opportunities where shared helpers or clearer boundaries would reduce duplicated logic. This deep-review edition retains the first-pass findings and adds a second systematic pass over companion delivery, queues, callback dispatch, self-update concurrency, storage publication and nested configuration helpers.
+This is a fresh audit of the supplied OpenHop Core and OpenHop Repeater snapshots. It focuses on internal behaviour that differs from what configuration, telemetry or the web UI claims, plus maintainability opportunities where shared helpers or clearer boundaries would reduce duplicated logic. This edition retains both audit passes and replaces every former patch sketch with a dedicated implementation plan covering change scope, verification, testing and rollout.
 
 The supplied 13 July audit was used **only as an organisational/layout reference**. Its findings, comparison conclusions and numbering were not imported into this audit.
 
@@ -18,6 +18,7 @@ The supplied 13 July audit was used **only as an organisational/layout reference
 |---|---:|
 | Confirmed defect reports | **27** |
 | Possible enhancement reports | **20** |
+| Detailed implementation plans | **47** |
 | Focused reproduction checks | **27 passed** |
 | Core tests collected and executed | **1,272 passed** |
 | Repeater tests collected and executed | **1,222 passed** |
@@ -101,9 +102,13 @@ A report is classified as a **bug** only where the supplied code gives contradic
 - [`docs/FILE-REVIEW-MATRIX.md`](docs/FILE-REVIEW-MATRIX.md) — reviewed subsystems and source counts
 - [`MANIFEST.sha256`](MANIFEST.sha256) — integrity hashes for the audit contents
 
-## Patch notes
+## Implementation plans
 
-Every report links to an implementation sketch in `patches/`. These patches are review aids, not drop-in production changes. The supplied snapshot contains only compiled frontend assets, so UI fixes are described at source level and must be applied in the actual frontend source before rebuilding.
+Every report links to a dedicated `implementation-plans/<finding>/implementation_plan.md`. The former patch sketches have been removed. Each plan documents the required repositories and files, implementation sequence, decisions to verify, tests, compatibility risks, rollout and definition of done.
+
+- [`implementation-plans/README.md`](implementation-plans/README.md) — index of all 27 defect plans and 20 possible-enhancement plans
+
+The supplied snapshot contains only compiled frontend assets, so UI plans explicitly require locating and changing the real frontend source before rebuilding generated assets.
 
 ## Archive
 

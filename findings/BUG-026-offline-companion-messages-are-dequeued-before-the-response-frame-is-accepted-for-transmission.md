@@ -32,11 +32,12 @@ Use peek/reserve/commit semantics. Make `_enqueue_frame()` return success, enque
 
 The deeper focused check filled the outbound queue, then requested the next offline message. The frame was dropped as `QueueFull` and the offline queue became empty.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-026.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-026/implementation_plan.md)
+
 
 ## Source references and excerpts
 

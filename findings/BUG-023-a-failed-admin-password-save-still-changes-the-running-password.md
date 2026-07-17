@@ -32,11 +32,12 @@ Validate and stage the new password, persist a copied configuration atomically, 
 
 The deeper focused check forced `save_to_file()` to return false. The endpoint returned HTTP 500 while `config[repeater][security][admin_password]` already held the new password.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/BUG-023.patch)
+[Open `implementation_plan.md`](../implementation-plans/BUG-023/implementation_plan.md)
+
 
 ## Source references and excerpts
 

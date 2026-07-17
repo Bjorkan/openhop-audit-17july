@@ -28,11 +28,12 @@ Represent each check/install as a job containing ID, type, channel, start time a
 
 Prevents stale completions, supports cancellation/history and simplifies progress/API responses.
 
-## Suggested code change
+## Implementation plan
 
-> **Review warning:** the linked patch is an LLM-generated implementation sketch. It is intended to show the approximate change surface, not to be applied blindly. Rebase it onto the current source, add regression tests, and review concurrency, persistence and protocol implications.
+The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
 
-[Open the suggested patch](../patches/POSSIBLE-ENHANCEMENT-016.patch)
+[Open `implementation_plan.md`](../implementation-plans/POSSIBLE-ENHANCEMENT-016/implementation_plan.md)
+
 
 ## Source references and excerpts
 
