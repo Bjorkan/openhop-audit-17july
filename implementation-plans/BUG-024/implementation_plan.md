@@ -31,7 +31,7 @@ Inspect/bind the callable signature before the call, or register callback capabi
 
 | Repository | Path | Purpose |
 |---|---|---|
-| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 772–806 |
+| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 1082–1116 |
 
 The listed paths are the minimum evidence/change surface identified by the audit. Before editing, search the repositories for the affected symbols, field names and response keys to find indirect consumers, tests and generated artifacts.
 

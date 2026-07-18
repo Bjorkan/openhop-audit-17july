@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 import asyncio
 import inspect
@@ -6,8 +7,8 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-CORE = Path('/mnt/data/deep_audit_round2/core/openhop_core-fix-all-the-things-core')
-REP = Path('/mnt/data/deep_audit_round2/repeater/openhop_repeater-fix-all-the-things')
+CORE = Path(os.environ["OPENHOP_CORE_ROOT"]).resolve()
+REP = Path(os.environ["OPENHOP_REPEATER_ROOT"]).resolve()
 sys.path.insert(0, str(CORE / 'src'))
 sys.path.insert(0, str(REP))
 

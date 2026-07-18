@@ -1,10 +1,10 @@
 from __future__ import annotations
-import hashlib, json
+import hashlib, json, os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 # Supply source roots when running outside the audit package.
-CORE=Path("/mnt/data/deep_audit_round2/core/openhop_core-fix-all-the-things-core")
-REP=Path("/mnt/data/deep_audit_round2/repeater/openhop_repeater-fix-all-the-things")
+CORE=Path(os.environ["OPENHOP_CORE_ROOT"]).resolve()
+REP=Path(os.environ["OPENHOP_REPEATER_ROOT"]).resolve()
 roots={"Core":CORE,"Repeater":REP}
 items=json.loads((ROOT/"docs/NEW-EVIDENCE-MANIFEST.json").read_text())
 errors=[]; total=0

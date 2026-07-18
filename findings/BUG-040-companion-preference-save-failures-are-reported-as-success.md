@@ -30,12 +30,12 @@ Setters must report persistence failure and either roll back runtime state or ex
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static return discard | **Passed** | The persistence method returns bool but `_save_prefs` ignores it. |
-| 2 | Failed setter | **Passed** | The setter returns normally and mutates runtime state after an explicit false save. |
-| 3 | Restart countercheck | **Passed** | A fresh bridge loads the old persisted value. |
+|---|---|---|---|
+| Static runtime trace | Preference setter through persistence | **Passed** | The persistence method returns a boolean, but `_save_prefs` discards it and the setter mutates runtime state. |
+| Executable reproduction | Failed setter | **Passed** | An explicit false save returns normally and leaves the requested runtime value active. |
+| Active falsification | Restart consistency check | **Passed** | A fresh bridge reloads the old persisted value, proving the apparent success was not durable through restart. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 
@@ -74,23 +74,23 @@ See [`implementation-plans/BUG-040/implementation_plan.md`](../implementation-pl
   120 |                 return
   121 |             for key, value in stored.items():
 ```
-### Evidence 2: `src/openhop_core/companion/base_config.py` lines 34–46
+### Evidence 2: `src/openhop_core/companion/base_config.py` lines 35–47
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/base_config.py#L34-L46)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/base_config.py#L35-L47)
 
 ```text
-   34 |     def set_advert_name(self, name: str) -> None:
-   35 |         """Set the node's advertised name.
-   36 | 
-   37 |         Firmware stores this in a fixed ``char node_name[32]`` (NodePrefs.h),
-   38 |         so the limit is 31 *bytes* of UTF-8, not 31 characters. Truncate on
-   39 |         the encoded bytes and decode leniently so a multi-byte codepoint
-   40 |         straddling the cut is dropped whole rather than split.
-   41 |         """
-   42 |         self.prefs.node_name = name.encode("utf-8")[:NODE_NAME_MAX_BYTES].decode(
-   43 |             "utf-8", errors="ignore"
-   44 |         )
-   45 |         self._save_prefs()
-   46 | 
+   35 |     def set_advert_name(self, name: str) -> None:
+   36 |         """Set the node's advertised name.
+   37 | 
+   38 |         Firmware stores this in a fixed ``char node_name[32]`` (NodePrefs.h),
+   39 |         so the limit is 31 *bytes* of UTF-8, not 31 characters. Truncate on
+   40 |         the encoded bytes and decode leniently so a multi-byte codepoint
+   41 |         straddling the cut is dropped whole rather than split.
+   42 |         """
+   43 |         self.prefs.node_name = name.encode("utf-8")[:NODE_NAME_MAX_BYTES].decode(
+   44 |             "utf-8", errors="ignore"
+   45 |         )
+   46 |         self._save_prefs()
+   47 | 
 ```
 

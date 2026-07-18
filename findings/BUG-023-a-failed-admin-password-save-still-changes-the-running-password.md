@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **High** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Authentication / configuration transactions |
 | Components | OpenHop Repeater Web API |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -33,6 +34,16 @@ Validate and stage the new password, persist a copied configuration atomically, 
 ## Reproduction / verification
 
 The deeper focused check forced `save_to_file()` to return false. The endpoint returned HTTP 500 while `config[repeater][security][admin_password]` already held the new password.
+
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_023_confirmed_password_save_failure_leaves_new_runtime_password` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | The live password changes before persistence and no failure path restores the prior value. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
 
 ## Implementation plan
 

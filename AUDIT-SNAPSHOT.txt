@@ -1,42 +1,53 @@
-OpenHop internal logic and consistency audit snapshot — triple-verified deep review
-Generated: 2026-07-17 (Europe/Stockholm)
+OpenHop internal logic and consistency audit snapshot — independently updated triple-verified deep review
+Updated: 2026-07-18 (Europe/Stockholm)
 
 INPUT ZIP SHA256
-Core           bd61d337e9f81434fc9579b0f3f072e30b90904e11e33fea4a425c0d374ea51b  openhop_core-fix-all-the-things-core(5).zip
-Repeater       270aff51154b8ce80f2907073362bc0bb95d3cc687189835b94322c8b2634a6e  openhop_repeater-fix-all-the-things(5).zip
-Layout only    0784fc5819e7b16f615d258ce733842c81266922282c5c25d53ff77178616474  openhop-audit-13july(1).zip
-Prior audit    aa09dbeba1ecd5ff448079f3307b83a0f08b80f3a34e8ca021fb89cea1d28486  openhop-internal-audit-17july-2026-implementation-plans.zip
+Core           f04a954dc8c8c005165a66db1c1453c7e317d38a87f468345987b1fa69d3e5c4  openhop_core-fix-all-the-things-core(1)(3).zip
+Repeater       270aff51154b8ce80f2907073362bc0bb95d3cc687189835b94322c8b2634a6e  openhop_repeater-fix-all-the-things(1)(3).zip
+Audit input    930cdd169ab96297e4e22c147d248b461fcff99da720fcef7e70671c36673a25  openhop-audit-17july-main(1).zip
 
 SOURCE IDENTIFIERS
 Core package version:        1.1.3.dev7
 Repeater version source:     dynamic setuptools_scm; no .git metadata or generated _version.py supplied
-Core source files/lines:     140 / 54442
-Repeater source files/lines: 122 / 59205
+Core Python files/lines:     145 / 56181
+Repeater Python files/lines: 122 / 59205
+Core package files/lines:    89 / 31125 under src/openhop_core
+Repeater package files/lines:68 / 36847 under repeater
 Compiled web assets:         66
 Frontend source maps:        0
 Frontend .vue/.ts/.tsx:      0
 
-REVERIFICATION RESULTS
-Core full suite:             1272 passed
-Repeater full suite:         1222 passed
-Independent checks:          28 passed
+INDEPENDENT UPDATE RESULTS
+Core full suite:             1331 passed; exit 0
+Repeater full suite:         1221 passed, 1 failed, 7 warnings; exit 1
+Repeater collection:         1222 tests
+Repeater failure:            tests/test_companion_bridge_prefs.py::test_bridge_accepts_host_radio_callbacks
+Failure distinction:         supplied Core defaults airtime_factor to 1.0; Repeater test expects 0
+Baseline executable checks: 28 passed
+Baseline falsification checks: 25 passed
+Active bug triple records:   47/47
+Markdown links:              614 checked, 0 broken
+Plan path rows:              135 checked, 0 missing existing paths
+Existing deep-review checks: 63 passed (3 each for BUG-028 through BUG-048)
+New BUG-049 checks:          3 passed
 Enhancement premise checks:  20 passed
-Quoted evidence lines:       5838 checked, 0 mismatches (4371 baseline + 1467 new)
+Quoted evidence lines:       5901 checked, 0 mismatches (4371 baseline + 1530 BUG-028–BUG-049)
 
 FINAL ACTIVE CLASSIFICATION
-Confirmed defects:           46
+Confirmed defects:           47
 Retracted defect claims:     1
 Reclassified defect claims:  1
 Possible enhancements:       18
 Merged enhancement reports:  2
-Active implementation plans: 64
-Former patch files:          removed
+Active implementation plans: 65
+Source tree modifications:   0 Core / 0 Repeater
+Patch files:                 0
 
-DEEP-REVIEW ADDITION
-New defect reports:          21
-Independent new checks:      63 passed (3 per report)
-Rejected/deferred candidates: 8 documented
-Verification scripts:        5 rerun successfully
-Core full-suite rerun:       1272 collected; 100%; exit 0
-Repeater full-suite rerun:   1222 collected; 100%; exit 0
-Absolute false-positive guarantee: not claimed; confirmed against supplied snapshots
+UPDATE DELTA
+Existing active bugs retained: 46
+New defect reports:            1 (BUG-049)
+Corrected source excerpts:     14 ranges across 10 existing reports
+Rejected/deferred candidates:  9 documented
+Verification scripts:          6 rerun successfully
+Physical hardware behavior:    not claimed unless explicitly identified as hardware-dependent
+Absolute false-positive guarantee: not claimed; conclusions are limited to supplied snapshots and reproducible behavior

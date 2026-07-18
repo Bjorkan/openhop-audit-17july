@@ -30,12 +30,12 @@ Login completion and cleanup must be scoped to the exact destination/request tha
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static state mismatch | **Passed** | Passwords are keyed, but the completion callback is global. |
-| 2 | Overlapping login | **Passed** | Response data for A resolves B while A remains pending. |
-| 3 | Cleanup interference | **Passed** | Cancellation/cleanup of an older login clears the newer waiter. |
+|---|---|---|---|
+| Static runtime trace | Login state/callback ownership | **Passed** | Passwords are keyed per target, but login completion uses one global callback slot. |
+| Executable reproduction | Overlapping login calls | **Passed** | Response data for A resolves B while A remains pending. |
+| Active falsification | Cancellation and cleanup interference | **Passed** | Cleanup of an older login clears the newer waiter, proving no hidden per-operation ownership restores correctness. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

@@ -30,12 +30,12 @@ Local effective state must change only after the command is accepted, and ideall
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static operation order | **Passed** | Local mutation occurs before the queue capacity check. |
-| 2 | Full queue | **Passed** | The method returns false but the local value changes. |
-| 3 | Wire-state countercheck | **Passed** | No command frame is added while local state reflects the requested value. |
+|---|---|---|---|
+| Static runtime trace | Configuration command ordering | **Passed** | The adapter mutates local configuration before checking whether the command can be queued. |
+| Executable reproduction | Full command queue | **Passed** | The real setter returns false while the local value has already changed. |
+| Active falsification | Wire-state countercheck | **Passed** | No command frame is emitted while local state reflects the requested value, excluding a hidden successful hardware update. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

@@ -30,12 +30,12 @@ Every credential writer and reader must use one canonical schema and field names
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static writer/reader mismatch | **Passed** | CLI and LoginHelper use different subtrees and admin key names. |
-| 2 | Command state separation | **Passed** | Commands report success while the authentication subtree remains unchanged. |
-| 3 | Actual LoginHelper | **Passed** | The ACL is built with the old nested credentials. |
+|---|---|---|---|
+| Static runtime trace | CLI writer to authentication reader | **Passed** | CLI and `LoginHelper` use different configuration subtrees and admin-key names. |
+| Executable reproduction | Public security commands | **Passed** | Commands report success while the authentication subtree remains unchanged. |
+| Active falsification | Actual `LoginHelper` construction | **Passed** | The real helper builds its ACL from the old nested credentials; no alias maps the CLI-written values. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

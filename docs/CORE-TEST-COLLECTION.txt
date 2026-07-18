@@ -2,7 +2,9 @@ tests/hardware/test_gpiod_edge_recovery.py: 1
 tests/hardware/test_protocol_constants.py: 21
 tests/test_anon_request_handler.py: 19
 tests/test_basic.py: 2
+tests/test_cayenne_lpp.py: 5
 tests/test_cipher_mac_size.py: 3
+tests/test_client_repeat.py: 19
 tests/test_companion_base.py: 37
 tests/test_companion_bridge.py: 67
 tests/test_companion_contact_exchange.py: 8
@@ -14,15 +16,15 @@ tests/test_crypto.py: 5
 tests/test_dispatcher.py: 55
 tests/test_events.py: 16
 tests/test_flood_rx_delay.py: 30
-tests/test_frame_server.py: 168
+tests/test_frame_server.py: 175
 tests/test_handlers.py: 96
 tests/test_identity.py: 4
-tests/test_kiss_modem_wrapper.py: 101
+tests/test_kiss_modem_wrapper.py: 109
 tests/test_lora_airtime.py: 24
 tests/test_mesh_node.py: 4
 tests/test_modem_identity.py: 24
 tests/test_packet.py: 26
-tests/test_packet_builder.py: 34
+tests/test_packet_builder.py: 36
 tests/test_packet_filter.py: 21
 tests/test_packet_path_and_hash.py: 71
 tests/test_packet_utils.py: 33
@@ -33,5 +35,7 @@ tests/test_region_map.py: 3
 tests/test_sx1262_wrapper.py: 10
 tests/test_sx1262_wrapper_concurrency.py: 215
 tests/test_timing.py: 12
+tests/test_trace_completion_push.py: 5
 tests/test_transport_compat.py: 15
+tests/test_tx_budget.py: 13
 

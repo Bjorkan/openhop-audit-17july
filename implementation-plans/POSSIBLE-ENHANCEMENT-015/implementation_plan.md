@@ -31,7 +31,7 @@ Eliminates repeated branches, fixes decorated/callable-object behavior and centr
 
 | Repository | Path | Purpose |
 |---|---|---|
-| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 772–806 |
+| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 1082–1116 |
 | OpenHop Core | `src/openhop_core/companion/base_callbacks.py` | Evidence lines 44–50 |
 | OpenHop Core | `src/openhop_core/callbacks.py` (new or consolidated) | Proposed shared callback adapter; exact module placement must follow Core package ownership |
 

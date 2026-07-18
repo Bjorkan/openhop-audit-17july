@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **Medium** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Self-update persistence / UI contract |
 | Components | OpenHop Repeater Web API |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -33,6 +34,16 @@ Make `_save_channel()` return a boolean or raise; persist atomically before chan
 ## Reproduction / verification
 
 The deeper focused check forced `_save_channel()` to fail. The endpoint still returned `success=true` and changed the runtime channel.
+
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_022_confirmed_channel_save_failure_is_not_propagated` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | Channel persistence returns no status; runtime changes and the endpoint reports success without rollback. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
 
 ## Implementation plan
 

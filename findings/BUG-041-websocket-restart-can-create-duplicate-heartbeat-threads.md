@@ -30,12 +30,12 @@ At most one heartbeat worker may exist for a server generation, and shutdown mus
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static lifecycle trace | **Passed** | Shutdown drops the reference without join; loops share one boolean. |
-| 2 | Immediate restart | **Passed** | The old thread is alive when the new thread starts, and both remain alive. |
-| 3 | Observable effect | **Passed** | Both workers send pings to the same client collection. |
+|---|---|---|---|
+| Static runtime trace | Heartbeat start/stop ownership | **Passed** | Shutdown drops the thread reference without joining, while old and new loops share one boolean run flag. |
+| Executable reproduction | Immediate restart | **Passed** | The old heartbeat thread is alive when the new thread starts, and both remain alive. |
+| Active falsification | Externally visible effect | **Passed** | Both workers send pings to the same client collection, excluding a harmless stale-thread interpretation. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

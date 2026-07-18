@@ -30,12 +30,12 @@ A user-visible advert interval must control a clearly identified advert schedule
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static writer/telemetry/scheduler trace | **Passed** | The accepted field is never consumed by the timer. |
-| 2 | Runtime reload | **Passed** | Reload retains the unrelated ten-hour scheduler value despite a one-minute local interval. |
-| 3 | Actual timer decision | **Passed** | Two minutes after the last advert, the real loop sends nothing for a one-minute setting. |
+|---|---|---|---|
+| Static runtime trace | API writer and telemetry to scheduler | **Passed** | The accepted local-advert field is saved and displayed but never read by the timer, which uses a different interval. |
+| Executable reproduction | Runtime reload | **Passed** | Reload retains the unrelated ten-hour scheduler value despite a one-minute local interval. |
+| Active falsification | Actual timer decision | **Passed** | Two minutes after the last advert, the real scheduling decision sends nothing; no fallback consumes the configured local interval. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

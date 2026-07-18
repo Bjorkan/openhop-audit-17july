@@ -30,12 +30,12 @@ Command responses must be correlated to the destination and request, and unrelat
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static unkeyed slot | **Passed** | One callback is installed and receive handling has no expected sender/request check. |
-| 2 | Unrelated message | **Passed** | An ordinary plain message satisfies the callback and disappears from normal delivery. |
-| 3 | Overlapping public calls | **Passed** | A response labeled from A completes B while A remains pending. |
+|---|---|---|---|
+| Static runtime trace | Global response slot ownership | **Passed** | One callback slot is installed and receive handling has no expected sender or request identity check. |
+| Executable reproduction | Unrelated inbound message | **Passed** | An ordinary plain message satisfies the callback and disappears from normal delivery. |
+| Active falsification | Overlapping public calls | **Passed** | A response labeled from A completes B while A remains pending, excluding a single-call-only interpretation. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

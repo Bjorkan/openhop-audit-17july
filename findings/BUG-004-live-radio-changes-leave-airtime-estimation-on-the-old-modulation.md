@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **High** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Radio configuration / duty-cycle enforcement |
 | Components | OpenHop Core + OpenHop Repeater |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -35,6 +36,16 @@ Reload airtime parameters only after hardware configuration succeeds; on failure
 Focused check changed SF7 to SF12. The manager kept returning 97.536 ms for a 50-byte packet while the shared estimator returned 2,301.952 ms for SF12.
 
 See [`docs/REVERIFICATION-CHECKS.md`](../docs/REVERIFICATION-CHECKS.md) and the executable check script.
+
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_004_confirmed_live_radio_mutation_does_not_update_airtime_parameters` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | Airtime calculation remains bound to cached modulation fields and live radio apply does not synchronize them. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
 
 ## Implementation plan
 

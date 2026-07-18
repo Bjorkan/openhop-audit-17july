@@ -30,12 +30,12 @@ Worker threads must transfer completion to the owning event loop using its threa
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static thread-hop trace | **Passed** | The worker calls the callback directly and the callback calls `future.set_result` without a thread-safe hop. |
-| 2 | Debug event loop | **Passed** | Python raises a non-thread-safe event-loop `RuntimeError`. |
-| 3 | Release-loop wakeup | **Passed** | The waiter does not resume until a separate thread-safe nudge wakes the loop. |
+|---|---|---|---|
+| Static runtime trace | Worker callback to asyncio waiter | **Passed** | The serial worker invokes the RX callback directly, and that callback calls `future.set_result` without a thread-safe event-loop hop. |
+| Executable reproduction | Debug event loop | **Passed** | The real wait path raises Python’s non-thread-safe event-loop `RuntimeError`. |
+| Active falsification | Release-loop countercheck | **Passed** | With debug checks absent, the waiter still does not resume until an unrelated thread-safe nudge wakes the loop, so the issue is not debug-only. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

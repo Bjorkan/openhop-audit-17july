@@ -1,0 +1,7 @@
+active_findings=65
+active_plans=65
+finding_plan_pairs=65
+repository_path_rows=135
+skipped_proposed_or_unsupplied=11
+missing_existing_paths=0
+result=PASS

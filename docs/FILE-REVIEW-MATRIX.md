@@ -4,7 +4,7 @@
 
 | Tree | Python files | Python lines | Review coverage |
 |---|---:|---:|---|
-| `openhop_core/src/openhop_core` | 88 | 30,625 | Indexed; hardware/configuration paths manually traced |
+| `openhop_core/src/openhop_core` | 89 | 31,125 | Indexed; hardware/configuration paths manually traced |
 | `openhop_repeater/repeater` | 68 | 36,847 | Indexed; API, config, radio, airtime, adverts, storage, GPS and UI contracts manually traced |
 | `repeater/web/html/assets` | 66 assets | Minified build output | String/contract tracing with exact byte offsets |
 
@@ -25,20 +25,21 @@
 | Callback dispatch | Core Dispatcher, handlers and Companion callbacks | Signature compatibility, awaitable handling, duplicate invocation |
 | Self-update | `repeater/web/update_endpoints.py` | Worker ownership, state transitions, channel persistence and stale results |
 | OpenAPI | `repeater/web/openapi.yaml` + endpoint parsers | Request field parity |
+| Core client-repeat airtime budget | `src/openhop_core/node/dispatcher.py`, `tests/test_tx_budget.py` | Atomic admission, TX serialization, pacing, cancellation and concurrent sends |
 
 ## Automated coverage
 
 - Full project test suites.
 - `compileall` on both Python source trees.
 - OpenAPI contract checker.
-- Focused cross-layer reproduction scripts included with the audit: 12 first-pass checks and 15 deep-review checks.
+- Focused cross-layer reproduction scripts included with the audit, including 66 checks for BUG-028–BUG-049.
 
 This matrix distinguishes automated indexing from manually traced paths; it does not claim that every line was semantically proven correct.
 
 
 ## Triple-verified deep-review extension
 
-The following additional source surfaces were traced during BUG-028–BUG-048. Inclusion here means the file participated in at least one end-to-end trace; it does not imply every line in the file was audited.
+The following additional source surfaces were traced during BUG-028–BUG-049. Inclusion here means the file participated in at least one end-to-end trace; it does not imply every line in the file was audited.
 
 | Repository | Path | Review scope |
 |---|---|---|

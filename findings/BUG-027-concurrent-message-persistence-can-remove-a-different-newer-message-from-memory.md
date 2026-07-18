@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **High** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Companion persistence / concurrency |
 | Components | OpenHop Core + OpenHop Repeater |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -33,6 +34,16 @@ Assign queue entry IDs/tokens and remove by identity after successful persistenc
 ## Reproduction / verification
 
 The deeper focused check inserted a second message during the awaited SQLite call. `pop_last()` removed the second message and left the first, already-persisted message in memory.
+
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_027_confirmed_persistence_interleaving_pops_newer_message` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | Persistence removes the queue tail after an await, with no stable identity or lock tying removal to the persisted entry. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
 
 ## Implementation plan
 
@@ -118,81 +129,81 @@ The former patch sketch has been replaced with a review-oriented plan covering t
    61 |         return None
 ```
 
-### Evidence 3: `src/openhop_core/companion/frame_server/push.py` lines 58–110
+### Evidence 3: `src/openhop_core/companion/frame_server/push.py` lines 59–111
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/push.py#L58-L110)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/push.py#L59-L111)
 
 ```text
-   58 |     async def _on_message_event(self, event: MessageEvent):
-   59 |         msg_dict = {
-   60 |             "sender_key": event.sender_key,
-   61 |             "text": event.text,
-   62 |             "timestamp": event.timestamp,
-   63 |             "txt_type": event.txt_type,
-   64 |             "is_channel": False,
-   65 |             "channel_idx": 0,
-   66 |             "path_len": event.path_len,
-   67 |             "packet_hash": event.packet_hash,
-   68 |             "snr": event.snr,
-   69 |             "rssi": event.rssi,
-   70 |             "sender_prefix": event.sender_prefix,
-   71 |         }
-   72 |         if event.queued:
-   73 |             await self._persist_companion_message(msg_dict)
-   74 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
-   75 | 
-   76 |     async def _on_channel_message_event(self, event: ChannelMessageEvent):
-   77 |         msg_dict = {
-   78 |             "sender_key": b"",
-   79 |             "text": event.text,
-   80 |             "timestamp": event.timestamp,
-   81 |             "txt_type": 0,
-   82 |             "is_channel": True,
-   83 |             "channel_idx": event.channel_idx,
-   84 |             "path_len": event.path_len,
-   85 |             "packet_hash": event.packet_hash,
-   86 |             "snr": event.snr,
-   87 |             "rssi": event.rssi,
-   88 |         }
-   89 |         if event.queued:
-   90 |             await self._persist_companion_message(msg_dict)
-   91 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
-   92 | 
-   93 |     async def _on_channel_data_event(self, event: ChannelDataEvent):
-   94 |         msg_dict = {
-   95 |             "sender_key": b"",
-   96 |             "text": "",
-   97 |             "timestamp": 0,
-   98 |             "txt_type": 0,
-   99 |             "is_channel": True,
-  100 |             "channel_idx": event.channel_idx,
-  101 |             "path_len": event.path_len,
-  102 |             "packet_hash": event.packet_hash,
-  103 |             "snr": event.snr,
-  104 |             "rssi": event.rssi,
-  105 |             "channel_data_type": event.data_type,
-  106 |             "channel_data_payload": bytes(event.payload or b""),
-  107 |         }
-  108 |         if event.queued:
-  109 |             await self._persist_companion_message(msg_dict)
-  110 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
+   59 |     async def _on_message_event(self, event: MessageEvent):
+   60 |         msg_dict = {
+   61 |             "sender_key": event.sender_key,
+   62 |             "text": event.text,
+   63 |             "timestamp": event.timestamp,
+   64 |             "txt_type": event.txt_type,
+   65 |             "is_channel": False,
+   66 |             "channel_idx": 0,
+   67 |             "path_len": event.path_len,
+   68 |             "packet_hash": event.packet_hash,
+   69 |             "snr": event.snr,
+   70 |             "rssi": event.rssi,
+   71 |             "sender_prefix": event.sender_prefix,
+   72 |         }
+   73 |         if event.queued:
+   74 |             await self._persist_companion_message(msg_dict)
+   75 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
+   76 | 
+   77 |     async def _on_channel_message_event(self, event: ChannelMessageEvent):
+   78 |         msg_dict = {
+   79 |             "sender_key": b"",
+   80 |             "text": event.text,
+   81 |             "timestamp": event.timestamp,
+   82 |             "txt_type": 0,
+   83 |             "is_channel": True,
+   84 |             "channel_idx": event.channel_idx,
+   85 |             "path_len": event.path_len,
+   86 |             "packet_hash": event.packet_hash,
+   87 |             "snr": event.snr,
+   88 |             "rssi": event.rssi,
+   89 |         }
+   90 |         if event.queued:
+   91 |             await self._persist_companion_message(msg_dict)
+   92 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
+   93 | 
+   94 |     async def _on_channel_data_event(self, event: ChannelDataEvent):
+   95 |         msg_dict = {
+   96 |             "sender_key": b"",
+   97 |             "text": "",
+   98 |             "timestamp": 0,
+   99 |             "txt_type": 0,
+  100 |             "is_channel": True,
+  101 |             "channel_idx": event.channel_idx,
+  102 |             "path_len": event.path_len,
+  103 |             "packet_hash": event.packet_hash,
+  104 |             "snr": event.snr,
+  105 |             "rssi": event.rssi,
+  106 |             "channel_data_type": event.data_type,
+  107 |             "channel_data_payload": bytes(event.payload or b""),
+  108 |         }
+  109 |         if event.queued:
+  110 |             await self._persist_companion_message(msg_dict)
+  111 |         self._enqueue_frame(bytes([PUSH_CODE_MSG_WAITING]))
 ```
 
-### Evidence 4: `src/openhop_core/node/dispatcher.py` lines 347–358
+### Evidence 4: `src/openhop_core/node/dispatcher.py` lines 377–388
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L347-L358)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L377-L388)
 
 ```text
-  347 |     def _on_packet_received(
-  348 |         self,
-  349 |         data: bytes,
-  350 |         rssi: Optional[int] = None,
-  351 |         snr: Optional[float] = None,
-  352 |     ) -> None:
-  353 |         """Called by the radio when a packet comes in. rssi/snr are per-packet when provided."""
-  354 |         try:
-  355 |             loop = asyncio.get_running_loop()
-  356 |             loop.create_task(self._process_received_packet(data, rssi, snr))
-  357 |         except RuntimeError:
-  358 |             self._log("No event loop running, cannot process received packet")
+  377 |     def _on_packet_received(
+  378 |         self,
+  379 |         data: bytes,
+  380 |         rssi: Optional[int] = None,
+  381 |         snr: Optional[float] = None,
+  382 |     ) -> None:
+  383 |         """Called by the radio when a packet comes in. rssi/snr are per-packet when provided."""
+  384 |         try:
+  385 |             loop = asyncio.get_running_loop()
+  386 |             loop.create_task(self._process_received_packet(data, rssi, snr))
+  387 |         except RuntimeError:
+  388 |             self._log("No event loop running, cannot process received packet")
 ```

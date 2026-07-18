@@ -1221,4 +1221,4 @@ tests/test_update_endpoints_unit.py::test_do_install_root_install_command_failur
 tests/test_update_endpoints_unit.py::test_do_install_wrapper_success_then_restart_failure
 tests/test_update_endpoints_unit.py::test_do_install_wrapper_success_container_path
 
-1222 tests collected in 1.59s
+1222 tests collected in 1.61s

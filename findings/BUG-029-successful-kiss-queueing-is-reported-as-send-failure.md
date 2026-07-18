@@ -30,12 +30,12 @@ A successful transport submission must have one unambiguous result shared by all
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static contract contradiction | **Passed** | The base contract and KISS docstring permit/return `None`; Dispatcher rejects `None`. |
-| 2 | Direct adapter path | **Passed** | KISS accepts the frame and returns `None` without raising. |
-| 3 | Dispatcher integration | **Passed** | The same accepted frame produces `False` from `send_packet`. |
+|---|---|---|---|
+| Static runtime trace | Adapter/dispatcher return contract | **Passed** | The base contract and KISS implementation permit/return `None`; Dispatcher treats any falsy metadata as send failure. |
+| Executable reproduction | Direct adapter path | **Passed** | KISS accepts and queues the frame, returns `None`, and raises no error. |
+| Active falsification | Dispatcher integration countercheck | **Passed** | The same accepted frame produces `False` from `send_packet`; no wrapper normalizes successful queueing. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 
@@ -82,33 +82,37 @@ See [`implementation-plans/BUG-029/implementation_plan.md`](../implementation-pl
   502 |     async def wait_for_rx(self) -> bytes:
   503 |         """
 ```
-### Evidence 3: `src/openhop_core/node/dispatcher.py` lines 592–614
+### Evidence 3: `src/openhop_core/node/dispatcher.py` lines 889–915
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L592-L614)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L889-L915)
 
 ```text
-  592 |         raw = packet.write_to()
-  593 |         tx_metadata = None
-  594 |         try:
-  595 |             tx_metadata = await self.radio.send(raw)
-  596 |         except Exception as e:
-  597 |             self._log(f"Radio transmit error: {e}")
-  598 |             self.state = DispatcherState.IDLE
-  599 |             return False
-  600 |         if tx_metadata is None:
-  601 |             self._log("Radio transmit returned no confirmation metadata")
-  602 |             self.state = DispatcherState.IDLE
-  603 |             return False
-  604 |         # Log what we sent
-  605 |         type_name = PAYLOAD_TYPES.get(payload_type, f"UNKNOWN_{payload_type}")
-  606 |         route_name = ROUTE_TYPES.get(packet.get_route_type(), f"UNKNOWN_{packet.get_route_type()}")
-  607 |         self._log(f"TX {packet.get_raw_length()} bytes (type={type_name}, route={route_name})")
-  608 | 
-  609 |         # Store metadata on packet for access by handlers
-  610 |         if tx_metadata:
-  611 |             packet._tx_metadata = tx_metadata
-  612 | 
-  613 |         if self.packet_sent_callback:
-  614 |             await self._invoke_callback(self.packet_sent_callback, packet)
+  889 |         # ------------------------------------------------------------------ #
+  890 |         self.state = DispatcherState.TRANSMIT
+  891 |         raw = packet.write_to()
+  892 |         tx_metadata = None
+  893 |         try:
+  894 |             tx_metadata = await self.radio.send(raw)
+  895 |         except Exception as e:
+  896 |             self._log(f"Radio transmit error: {e}")
+  897 |             self.state = DispatcherState.IDLE
+  898 |             return False
+  899 |         if tx_metadata is None:
+  900 |             self._log("Radio transmit returned no confirmation metadata")
+  901 |             self.state = DispatcherState.IDLE
+  902 |             return False
+  903 |         # Spend the airtime budget on the completed transmit (client-repeat only).
+  904 |         if self._client_repeat_enabled:
+  905 |             self._debit_tx_budget(packet)
+  906 |         # Log what we sent
+  907 |         type_name = PAYLOAD_TYPES.get(payload_type, f"UNKNOWN_{payload_type}")
+  908 |         route_name = ROUTE_TYPES.get(packet.get_route_type(), f"UNKNOWN_{packet.get_route_type()}")
+  909 |         self._log(f"TX {packet.get_raw_length()} bytes (type={type_name}, route={route_name})")
+  910 | 
+  911 |         # Store metadata on packet for access by handlers
+  912 |         if tx_metadata:
+  913 |             packet._tx_metadata = tx_metadata
+  914 | 
+  915 |         if self.packet_sent_callback:
 ```
 

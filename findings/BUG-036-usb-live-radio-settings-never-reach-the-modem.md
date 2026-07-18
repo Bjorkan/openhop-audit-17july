@@ -17,6 +17,10 @@
 
 The USB adapter’s live setters only modify Python attributes and return `True`. Repeater `ConfigManager` treats those return values as successful hardware application, so runtime/UI state can claim the radio changed while the modem retains its previous settings.
 
+## Hardware-verification boundary
+
+The zero-command behavior is proven through the real adapter and configuration entry path with a deterministic serial transport. No physical USB modem was used, so actual on-air behavior remains hardware-dependent.
+
 ## Expected behavior
 
 A successful live update must issue the corresponding modem command and confirm acceptance, or explicitly report restart required/unsupported.
@@ -30,12 +34,12 @@ A successful live update must issue the corresponding modem command and confirm 
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static setter trace | **Passed** | All ConfigManager-visible setters only assign attributes and return true. |
-| 2 | Direct setter | **Passed** | Frequency changes locally with zero serial writes. |
-| 3 | ConfigManager integration | **Passed** | Repeater reports live-update success while zero modem writes occur. |
+|---|---|---|---|
+| Static runtime trace | Repeater setter to USB adapter | **Passed** | Every ConfigManager-visible USB setter only assigns a Python attribute and returns true; no modem command is issued. |
+| Executable reproduction | Direct setter | **Passed** | Frequency changes locally with zero serial writes through the real adapter method. |
+| Active falsification | ConfigManager integration | **Passed** | Repeater reports live-update success with zero modem writes; no higher layer supplies the missing command. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

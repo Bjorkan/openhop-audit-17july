@@ -30,12 +30,12 @@ Every in-flight request must have exclusive, deterministic response ownership, o
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static correlation key | **Passed** | Both adapters index waiters only by response command and have no command-level serialization. |
-| 2 | TCP concurrency | **Passed** | Two commands are sent; one returns data and the other times out. |
-| 3 | USB concurrency | **Passed** | The same collision reproduces independently in the USB adapter. |
+|---|---|---|---|
+| Static runtime trace | Response correlation ownership | **Passed** | Both TCP and USB adapters index pending waiters only by response command and provide no command-level serialization. |
+| Executable reproduction | TCP overlapping commands | **Passed** | Two real command calls are sent; one receives data and the other times out after its waiter is overwritten. |
+| Active falsification | Independent USB adapter | **Passed** | The same collision reproduces in the separate USB implementation, excluding a TCP-only transport artifact or wrapper guard. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

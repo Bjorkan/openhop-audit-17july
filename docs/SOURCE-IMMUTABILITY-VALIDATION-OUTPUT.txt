@@ -1,0 +1,5 @@
+Core extracted-tree differences from a fresh extraction: 0
+Repeater extracted-tree differences from a fresh extraction: 0
+Input Core ZIP SHA-256: f04a954dc8c8c005165a66db1c1453c7e317d38a87f468345987b1fa69d3e5c4
+Input Repeater ZIP SHA-256: 270aff51154b8ce80f2907073362bc0bb95d3cc687189835b94322c8b2634a6e
+Result: PASS — neither supplied source tree was changed.

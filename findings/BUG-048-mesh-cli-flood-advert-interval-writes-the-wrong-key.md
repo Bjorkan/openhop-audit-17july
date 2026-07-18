@@ -30,12 +30,12 @@ The command must update the canonical scheduler field and report the effective r
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static key trace | **Passed** | CLI writer and runtime reader use different names. |
-| 2 | Public command persistence | **Passed** | The wrong key becomes 3 while the active key remains 10. |
-| 3 | Runtime reload | **Passed** | The real reload method ignores the written key. |
+|---|---|---|---|
+| Static runtime trace | CLI key to scheduler key | **Passed** | The CLI writer and runtime scheduler/reload reader use different configuration names. |
+| Executable reproduction | Public command persistence | **Passed** | The CLI-written key becomes 3 while the active scheduler key remains 10. |
+| Active falsification | Runtime reload | **Passed** | The real reload method ignores the written key, excluding a delayed alias or migration path. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

@@ -1,0 +1,10 @@
+active_bugs=47
+active_enhancements=18
+active_plans=65
+active_bug_triple_verification=47/47
+baseline_falsification=25/25
+severity_consistency=65/65
+plan_evidence_line_rows=76/76
+archived_classifications=4
+patch_files=0
+result=PASS

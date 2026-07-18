@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **Medium** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Runtime configuration / packet deduplication |
 | Components | OpenHop Repeater |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -33,6 +34,16 @@ Create one `parse_runtime_repeater_settings()` function and assign its immutable
 ## Reproduction / verification
 
 The deeper focused check started with `cache_ttl=3600`, reloaded an empty repeater section and observed `cache_ttl=60`.
+
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_017_confirmed_reload_default_differs_and_drops_missing_cache_ttl_to_60` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | Startup and reload still use different defaults, and only startup applies the lower bound. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
 
 ## Implementation plan
 

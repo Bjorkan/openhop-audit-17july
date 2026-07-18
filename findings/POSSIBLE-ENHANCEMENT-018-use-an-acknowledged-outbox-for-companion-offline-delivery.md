@@ -39,19 +39,19 @@ The former patch sketch has been replaced with a review-oriented plan covering t
 
 ## Source references and excerpts
 
-### Evidence 1: `src/openhop_core/companion/frame_server/commands_messaging.py` lines 430–437
+### Evidence 1: `src/openhop_core/companion/frame_server/commands_messaging.py` lines 416–423
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/commands_messaging.py#L430-L437)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/commands_messaging.py#L416-L423)
 
 ```text
-  430 |     async def _cmd_sync_next_message(self, data: bytes) -> None:
-  431 |         msg = self.bridge.sync_next_message()
-  432 |         if msg is None:
-  433 |             msg = await asyncio.to_thread(self._sync_next_from_persistence)
-  434 |         if msg is None:
-  435 |             self._write_frame(bytes([RESP_CODE_NO_MORE_MESSAGES]))
-  436 |             return
-  437 |         self._write_frame(self._build_message_frame(msg))
+  416 |     async def _cmd_sync_next_message(self, data: bytes) -> None:
+  417 |         msg = self.bridge.sync_next_message()
+  418 |         if msg is None:
+  419 |             msg = await asyncio.to_thread(self._sync_next_from_persistence)
+  420 |         if msg is None:
+  421 |             self._write_frame(bytes([RESP_CODE_NO_MORE_MESSAGES]))
+  422 |             return
+  423 |         self._write_frame(self._build_message_frame(msg))
 ```
 
 ### Evidence 2: `src/openhop_core/companion/frame_server/transport.py` lines 88–113

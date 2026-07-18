@@ -1,0 +1,4 @@
+PASS 1/3 static runtime trace: gate precedes lock; no reservation; debit follows TX
+PASS 2/3 executable reproduction: two concurrent sends passed one admission budget
+PASS 3/3 active falsification: sequential gate works; only concurrent pre-admission bypasses it
+BUG-049: 3/3 checks passed

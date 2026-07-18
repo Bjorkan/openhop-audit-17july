@@ -31,7 +31,7 @@ Introduce one shared `_invoke_maybe_awaitable(callback, *args)` helper and use i
 
 | Repository | Path | Purpose |
 |---|---|---|
-| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 295–333 |
+| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Evidence lines 325–363 |
 | OpenHop Core | `src/openhop_core/companion/base_callbacks.py` | Evidence lines 44–50 |
 
 The listed paths are the minimum evidence/change surface identified by the audit. Before editing, search the repositories for the affected symbols, field names and response keys to find indirect consumers, tests and generated artifacts.

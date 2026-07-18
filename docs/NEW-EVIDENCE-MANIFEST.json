@@ -11,8 +11,8 @@
     "finding": "BUG-028",
     "repo": "Core",
     "path": "src/openhop_core/node/dispatcher.py",
-    "start": 143,
-    "end": 154,
+    "start": 173,
+    "end": 184,
     "sha256": "9e6cde89f21f54e38b4db709827a47a0c32613ac6799e893577ed42456c58b0e"
   },
   {
@@ -35,9 +35,9 @@
     "finding": "BUG-029",
     "repo": "Core",
     "path": "src/openhop_core/node/dispatcher.py",
-    "start": 592,
-    "end": 614,
-    "sha256": "673f001a18045b899d0c21d11f7e019cbace53553be17a0bdfe29af4c76d2e31"
+    "start": 889,
+    "end": 915,
+    "sha256": "283b14ba661a1088699f9822782fa794b88cc30df3c6fec8c0bef847332f0460"
   },
   {
     "finding": "BUG-030",
@@ -99,8 +99,8 @@
     "finding": "BUG-032",
     "repo": "Core",
     "path": "src/openhop_core/node/dispatcher.py",
-    "start": 735,
-    "end": 766,
+    "start": 1045,
+    "end": 1076,
     "sha256": "07f1b499e08873662b835ebe4043343ef742e80130d75171109d4fd0c0a66dee"
   },
   {
@@ -220,8 +220,8 @@
     "repo": "Core",
     "path": "src/openhop_core/companion/frame_server/push.py",
     "start": 36,
-    "end": 70,
-    "sha256": "1b2c96aa84c43991fdd838c84fd426ca100fcfe2f715e36b719231a65472d092"
+    "end": 54,
+    "sha256": "2a13d00fb45e4e81fa319520a6f088fdb69e6150b5cce42badbc99db998e5689"
   },
   {
     "finding": "BUG-039",
@@ -243,8 +243,8 @@
     "finding": "BUG-040",
     "repo": "Core",
     "path": "src/openhop_core/companion/base_config.py",
-    "start": 34,
-    "end": 46,
+    "start": 35,
+    "end": 47,
     "sha256": "1799642ca8c84c3315dca7f8573e8aba163d960faabd961eabae88b5aedf1ce1"
   },
   {
@@ -454,5 +454,29 @@
     "start": 1794,
     "end": 1801,
     "sha256": "a2c5817000e05de77a9c122a8939614cf0a9be972725b6d419b24a558ca94162"
+  },
+  {
+    "finding": "BUG-049",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 646,
+    "end": 672,
+    "sha256": "b22eb34bc0a8878a62c45f1cb86e4f36be333fb7f819ee2c43d706942a52f95b"
+  },
+  {
+    "finding": "BUG-049",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 837,
+    "end": 867,
+    "sha256": "4deeb28f03d4ed629cd44539bb18359c4f456c78c6d39a359b34df3d7bf03b55"
+  },
+  {
+    "finding": "BUG-049",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 889,
+    "end": 905,
+    "sha256": "f3beed2ac87f97804fa1a1409d9c88713903565f0a39b50877ff71f6f76f4135"
   }
 ]

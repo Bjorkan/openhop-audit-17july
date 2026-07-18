@@ -30,12 +30,12 @@ A failed initialization or dead transport worker must atomically transition the 
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Auto-config failure | **Passed** | `connect()` returns false while connected state, open serial and started threads remain. |
-| 2 | TX-worker failure | **Passed** | The worker exits but `is_connected()` stays true and accepts another queued frame. |
-| 3 | Context manager | **Passed** | `with radio:` enters despite `connect()` returning false. |
+|---|---|---|---|
+| Static runtime trace | Connection flag and worker failure paths | **Passed** | Connected state and workers can be established before configuration succeeds, and worker exits do not clear the health state. |
+| Executable reproduction | Configuration and TX-worker failures | **Passed** | `connect()` can return false with open resources, and a failed TX worker leaves `is_connected()` true while more frames are accepted. |
+| Active falsification | Context-manager/public wrapper | **Passed** | `with radio:` still enters after `connect()` returns false; no wrapper rejects or repairs the stale state. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

@@ -9,11 +9,14 @@ import sys
 import threading
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-CORE = "/mnt/data/deep_audit_round2/core/openhop_core-fix-all-the-things-core/src"
-REPEATER = "/mnt/data/deep_audit_round2/repeater/openhop_repeater-fix-all-the-things"
+CORE_ROOT = Path(os.environ["OPENHOP_CORE_ROOT"]).resolve()
+REPEATER_ROOT = Path(os.environ["OPENHOP_REPEATER_ROOT"]).resolve()
+CORE = str(CORE_ROOT / "src")
+REPEATER = str(REPEATER_ROOT)
 sys.path.insert(0, CORE)
 sys.path.insert(0, REPEATER)
 

@@ -30,12 +30,12 @@ Receive parsing must cap frame size, increment an error metric, discard/resynchr
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Bytewise decoder | **Passed** | A frame reached 10,240 bytes with a configured maximum of 512. |
-| 2 | Bulk decoder | **Passed** | One chunk produced a 51,200-byte receive buffer. |
-| 3 | Worker-like stream | **Passed** | Repeated 4 KiB chunks grew the buffer to 131,072 bytes without a terminator. |
+|---|---|---|---|
+| Static runtime trace | RX worker through decoder state | **Passed** | The worker repeatedly feeds arbitrary chunks into a decoder that appends to its persistent buffer without enforcing the configured maximum before a frame terminator. |
+| Executable reproduction | Bytewise and bulk decoder inputs | **Passed** | The real decoder grew to 10,240 and 51,200 bytes with a configured 512-byte maximum. |
+| Active falsification | Worker-like stream and overflow search | **Passed** | Repeated realistic 4 KiB chunks grew the buffer to 131,072 bytes; no terminator, reset, cap, parser fallback or documented unsupported-input guard stopped it. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

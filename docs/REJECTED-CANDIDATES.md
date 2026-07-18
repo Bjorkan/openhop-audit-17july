@@ -12,5 +12,6 @@ These candidates were deliberately excluded from the confirmed-defect count beca
 | Generic `set radio` numeric units | **Deferred** | Unlike `set freq <mhz>`, the generic command help does not establish an unambiguous unit contract. |
 | Repeated-high GPIO callback behavior | **Rejected** | Source comments describe it as an intentional hardware workaround. |
 | CAD timeout assumes channel clear | **Rejected as policy issue** | The fallback is explicitly logged/documented as a policy. A safer default could be proposed separately, but the supplied contract does not make it a bug. |
+| Core/Repeater `airtime_factor` default mismatch | **Insufficiently supported as a runtime bug** | The current Repeater suite proves a snapshot/test-contract mismatch: supplied Core defaults the preference to `1.0`, while one Repeater test expects `0`. Core comments describe `1.0` as the firmware companion default, while older documentation/test expectations still use `0`. Without a decisive supplied external contract or reproduced harmful runtime outcome, only the compatibility/test inconsistency is confirmed. |
 
 A candidate should be promoted only after a real public path, contradictory contract and reproducible incorrect outcome are established independently.

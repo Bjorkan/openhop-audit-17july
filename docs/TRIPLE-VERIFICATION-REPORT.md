@@ -6,13 +6,13 @@ No new bug in this edition was accepted from a lint warning, code smell or isola
 
 1. **Static end-to-end trace** — writer/caller/consumer or lifecycle ownership was followed through the supplied source.
 2. **Executable reproduction** — the incorrect result was produced using the real implementation and deterministic fakes only where hardware or transport was required.
-3. **Independent reachability or contract countercheck** — the public/runtime path was exercised, or an alternative implementation/environment was used, while actively looking for a documented policy, guard or unreachable-state explanation.
+3. **Active falsification** — the public/runtime path or an independent adapter/environment was exercised while actively looking for a documented policy, guard, wrapper, normalization, fallback or unreachable-state explanation that would invalidate the reproduction.
 
 This process reduces false-positive risk but cannot mathematically guarantee behavior on every external firmware, operating system or later revision. Findings are confirmed against the two supplied snapshots.
 
 ## Results
 
-| Finding | Severity | Checks | Verification methods |
+| Finding | Severity | Checks | Specific static / executable / falsification checks |
 |---|---:|---:|---|
 | [BUG-028](../findings/BUG-028-wsradio-cannot-be-used-with-the-dispatcher.md) | High | 3/3 | Static contract trace, Dispatcher construction, Public node path |
 | [BUG-029](../findings/BUG-029-successful-kiss-queueing-is-reported-as-send-failure.md) | Medium | 3/3 | Static contract contradiction, Direct adapter path, Dispatcher integration |
@@ -35,14 +35,15 @@ This process reduces false-positive risk but cannot mathematically guarantee beh
 | [BUG-046](../findings/BUG-046-mesh-cli-frequency-command-stores-mhz-as-hz.md) | High | 3/3 | Static help/getter/setter trace, Public command persistence, Live application |
 | [BUG-047](../findings/BUG-047-local-advert-interval-is-saved-and-displayed-but-never-scheduled.md) | Medium | 3/3 | Static writer/telemetry/scheduler trace, Runtime reload, Actual timer decision |
 | [BUG-048](../findings/BUG-048-mesh-cli-flood-advert-interval-writes-the-wrong-key.md) | Medium | 3/3 | Static key trace, Public command persistence, Runtime reload |
+| [BUG-049](../findings/BUG-049-concurrent-sends-can-bypass-the-client-repeat-airtime-budget-gate.md) | High | 3/3 | Static runtime trace, Executable concurrent send, Sequential falsification control |
 
-- New confirmed reports: **21**
-- Independent passed checks: **63/63**
+- Triple-verified reports in this continuation: **22**
+- Independent passed checks: **66/66**
 - Verification scripts: [`triple-verification/`](triple-verification/)
 - Rejected/deferred candidates: [`REJECTED-CANDIDATES.md`](REJECTED-CANDIDATES.md)
 
 ## Full-suite context
 
-Both complete project suites were rerun separately from clean processes after the 63 focused checks. Core collected **1,272 tests**, reached 100%, and exited with status 0. Repeater collected **1,222 tests**, reached 100%, and exited with status 0. The outputs are preserved as [`CORE-FULL-RERUN-OUTPUT.txt`](CORE-FULL-RERUN-OUTPUT.txt), [`REPEATER-FULL-RERUN-OUTPUT.txt`](REPEATER-FULL-RERUN-OUTPUT.txt), [`CORE-TEST-COLLECTION-DEEP-REVIEW.txt`](CORE-TEST-COLLECTION-DEEP-REVIEW.txt) and [`REPEATER-TEST-COLLECTION-DEEP-REVIEW.txt`](REPEATER-TEST-COLLECTION-DEEP-REVIEW.txt).
+Both complete project suites were rerun separately from clean processes after the 66 focused checks. Core collected **1,331 tests**, reached 100%, and exited with status 0. Repeater collected **1,222 tests** and completed with **1,221 passed, 1 failed and 7 warnings**. The single failure is an explicit cross-snapshot default mismatch: supplied Core returns `airtime_factor=1.0`, while `test_bridge_accepts_host_radio_callbacks` expects `0`. No incorrect runtime outcome was independently established, so the mismatch is documented in [`REJECTED-CANDIDATES.md`](REJECTED-CANDIDATES.md) rather than promoted to a bug. Outputs are preserved as [`CORE-FULL-RERUN-OUTPUT.txt`](CORE-FULL-RERUN-OUTPUT.txt), [`REPEATER-FULL-RERUN-OUTPUT.txt`](REPEATER-FULL-RERUN-OUTPUT.txt), [`CORE-TEST-COLLECTION-DEEP-REVIEW.txt`](CORE-TEST-COLLECTION-DEEP-REVIEW.txt) and [`REPEATER-TEST-COLLECTION-DEEP-REVIEW.txt`](REPEATER-TEST-COLLECTION-DEEP-REVIEW.txt).
 
-Passing existing suites did not invalidate the new reports: the new reproductions specifically demonstrate gaps in current coverage, including tests that mock an obsolete return signature.
+Passing existing suites did not invalidate the reports: the new reproductions specifically demonstrate gaps in current coverage, including tests that mock an obsolete return signature.

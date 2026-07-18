@@ -30,12 +30,12 @@ A component must unregister only callbacks it owns; reconnecting one client must
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static clear-all trace | **Passed** | Frame setup calls a bridge-wide clear before registering. |
-| 2 | Third-party listener | **Passed** | An existing listener is removed immediately. |
-| 3 | Reconnect path | **Passed** | A once-registered external consumer receives no later event after setup runs again. |
+|---|---|---|---|
+| Static runtime trace | Frame-server callback lifecycle | **Passed** | Frame setup calls a bridge-wide clear before registering its own listeners. |
+| Executable reproduction | Independent third-party listener | **Passed** | A pre-existing listener is removed immediately by the real setup path. |
+| Active falsification | Reconnect path | **Passed** | After setup runs again, the external consumer receives no later event; no re-registration or ownership filter preserves it. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 
@@ -43,9 +43,9 @@ See [`implementation-plans/BUG-039/implementation_plan.md`](../implementation-pl
 
 ## Source evidence
 
-### Evidence 1: `src/openhop_core/companion/frame_server/push.py` lines 36–70
+### Evidence 1: `src/openhop_core/companion/frame_server/push.py` lines 36–54
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/push.py#L36-L70)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/companion/frame_server/push.py#L36-L54)
 
 ```text
    36 |     def _setup_push_callbacks(self) -> None:
@@ -65,24 +65,8 @@ See [`implementation-plans/BUG-039/implementation_plan.md`](../implementation-pl
    50 |         self.bridge.on_contact_deleted(self._on_contact_deleted)
    51 |         self.bridge.on_contacts_full(self._on_contacts_full)
    52 |         self.bridge.on_raw_data_received(self._on_raw_data_received)
-   53 | 
-   54 |     # -------------------------------------------------------------------------
-   55 |     # Bridge event callbacks (registered by _setup_push_callbacks)
-   56 |     # -------------------------------------------------------------------------
-   57 | 
-   58 |     async def _on_message_event(self, event: MessageEvent):
-   59 |         msg_dict = {
-   60 |             "sender_key": event.sender_key,
-   61 |             "text": event.text,
-   62 |             "timestamp": event.timestamp,
-   63 |             "txt_type": event.txt_type,
-   64 |             "is_channel": False,
-   65 |             "channel_idx": 0,
-   66 |             "path_len": event.path_len,
-   67 |             "packet_hash": event.packet_hash,
-   68 |             "snr": event.snr,
-   69 |             "rssi": event.rssi,
-   70 |             "sender_prefix": event.sender_prefix,
+   53 |         self.bridge.on_trace_received(self._on_trace_received)
+   54 | 
 ```
 ### Evidence 2: `src/openhop_core/companion/base_callbacks.py` lines 23–38
 

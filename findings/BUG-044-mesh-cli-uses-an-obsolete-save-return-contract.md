@@ -30,12 +30,12 @@ All callers and tests must use one typed save result, with persistence and live-
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static signature/callsites | **Passed** | Production returns bool; Mesh CLI has 23 tuple-unpack sites. |
-| 2 | Real public command | **Passed** | The file is written, then the command returns a Python error and skips live update. |
-| 3 | Test-double countercheck | **Passed** | Tests mock a tuple, explaining why the suite does not catch production behavior. |
+|---|---|---|---|
+| Static runtime trace | Save signature and CLI call sites | **Passed** | Production save returns a boolean, while Mesh CLI has 23 tuple-unpack call sites expecting an obsolete two-value result. |
+| Executable reproduction | Real public command | **Passed** | The file is written, then the command returns a Python error and skips live update. |
+| Active falsification | Test-double contract check | **Passed** | Existing tests mock the obsolete tuple, explaining the false coverage and excluding an unseen production wrapper. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

@@ -2,6 +2,12 @@
 
 The prior audit, its reproduction scripts and its implementation plans were treated as untrusted. Claims were re-derived from fresh source extractions and checked against reachable runtime paths, explicit documentation and independent executable tests.
 
+## Independent update — 18 July 2026
+
+The supplied audit was again treated as untrusted and checked only against the newly supplied Core and Repeater ZIPs. All **46** pre-existing active defects and all **18** active possible enhancements were retained. Fourteen source-evidence ranges were corrected after Core line movement or nearby code changes. All **64** existing plans were reviewed; `BUG-049` and its plan were added after three new checks passed.
+
+The current Core suite passes **1,331/1,331** tests. The Repeater suite runs **1,222** tests against that Core snapshot and reports **1,221 passed, 1 failed** because the Core `NodePrefs.airtime_factor` default is now `1.0` while one Repeater test still expects `0`. That source-snapshot mismatch is documented but is not classified as a runtime bug without independent evidence of the intended external default.
+
 ## Defect claims
 
 | Original ID | Verdict | Reverified conclusion |
@@ -63,11 +69,12 @@ The prior audit, its reproduction scripts and its implementation plans were trea
 
 - Fresh extraction of both source ZIPs.
 - Complete Core and Repeater test suites rerun.
-- 28 independent checks, including negative checks for the retracted and reclassified claims.
+- 28 independent executable checks, including negative checks for the retracted and reclassified claims.
+- 25 active-falsification checks covering every active baseline finding.
 - 20 factual-premise checks for possible enhancements.
 - Baseline: 4,371 quoted source lines compared byte-for-byte with the fresh source trees; zero mismatches.
 - External-entry-to-runtime tracing for configuration, API, callback, queue and updater paths.
-- Baseline source/test path validation for 43 implementation plans; the continuation validates all 64 active plans.
+- Source/test path and finding-link validation for all 65 active implementation plans.
 - Relative Markdown link validation, SHA-256 manifest validation and ZIP integrity testing.
 
 ## Limitations
@@ -79,4 +86,4 @@ The prior audit, its reproduction scripts and its implementation plans were trea
 
 ## Triple-verified continuation
 
-The continuation added 21 reports, BUG-028 through BUG-048. Each passed three independent checks; see [`TRIPLE-VERIFICATION-REPORT.md`](TRIPLE-VERIFICATION-REPORT.md). The earlier 25 active classifications were not changed in this continuation.
+The continuation now contains 22 reports, BUG-028 through BUG-049. Each passed three independent checks; see [`TRIPLE-VERIFICATION-REPORT.md`](TRIPLE-VERIFICATION-REPORT.md). The 46 findings active before this update retained their final classifications and severities. The 25 baseline findings are now explicitly recorded as three-method verified in [`BASELINE-TRIPLE-VERIFICATION.md`](BASELINE-TRIPLE-VERIFICATION.md).

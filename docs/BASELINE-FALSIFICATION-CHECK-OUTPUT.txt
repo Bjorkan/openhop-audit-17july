@@ -1,0 +1,26 @@
+PASS [BUG-001] No alternate actual-duty field or UI correction exists; budget utilization is normalized again.
+PASS [BUG-003] No AirtimeManager refresh exists in live update; the endpoint still supplies a live-result contract.
+PASS [BUG-004] Airtime calculation remains bound to cached fields and the live radio path has no estimator synchronization.
+PASS [BUG-005] The configure_radio capability branch has no fallback call to the separate TX-power setter.
+PASS [BUG-006] No runtime alias maps the documented/API keys to the three keys read at startup and reload.
+PASS [BUG-007] The endpoint itself hard-codes top-level success, no restart and an immediate-success message.
+PASS [BUG-008] No alternate full-restore path exists for top-level sections exported as part of the backup.
+PASS [BUG-009] Import contains two persistence attempts but no rollback and still constructs a success response.
+PASS [BUG-010] The shared TX-power field is mutated before later bandwidth rejection, with no staged copy or rollback.
+PASS [BUG-011] The limiter uses mutable wall time and the supplied GPS service can change that same clock.
+PASS [BUG-012] Neither quick endpoint persists, and the compiled terminal overrides the returned object to persisted=true.
+PASS [BUG-013] The affected branches still fan out and then commit delivery independently of the returned authenticated result.
+PASS [BUG-014] The local-candidate helper has no per-candidate exception handler or continuation fallback.
+PASS [BUG-015] The suppression parameter reaches the method but no branch uses it before MQTT publication.
+PASS [BUG-016] The normal duplicate path enforces the cap; the raw duplicate path appends without it.
+PASS [BUG-017] Startup and reload still use different defaults and only startup applies the lower bound.
+PASS [BUG-018] No recursive merge protects siblings; no supplied caller was found, preserving the latent/narrow classification.
+PASS [BUG-019] No alias/normalizer maps the OpenAPI request fields to the fields parsed by the endpoint.
+PASS [BUG-020] Only an existing install is excluded; stale check completion has no job identity and writes idle.
+PASS [BUG-021] Check completion has no channel or generation validation capable of discarding a stale result.
+PASS [BUG-022] Channel persistence has no propagated failure/rollback before the endpoint reports success.
+PASS [BUG-023] The live password changes before persistence and no failure path restores the prior value.
+PASS [BUG-024] Fallback is still triggered by every handler exception rather than pre-bound arity selection.
+PASS [BUG-025] The helper classifies the callable before invocation and never inspects the returned object.
+PASS [BUG-027] Persistence completion still removes queue tail after an await, with no token or lock tying removal to the persisted entry.
+baseline_active_findings=25 falsification_passed=25 failed=0

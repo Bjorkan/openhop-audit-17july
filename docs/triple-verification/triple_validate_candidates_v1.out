@@ -13,7 +13,7 @@ PASS [KISS-UNBOUNDED-RX-FRAME] bulk-decoder: buffer=51200, max=512
 PASS [KISS-UNBOUNDED-RX-FRAME] worker-like-chunk-stream: buffer=131072, max=512
 PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] static-thread-hop-trace: RX worker invokes callback synchronously; callback directly calls Future.set_result
 PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] debug-event-loop-runtime: callback_exception=RuntimeError('Non-thread-safe operation invoked on an event loop other than the current one'), task_done=False, waiter_resumed=False
-PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] release-loop-wakeup-behaviour: resumed_before_threadsafe_nudge=False, resumed_after_nudge=True, elapsed=0.15116628099895024
+PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] release-loop-wakeup-behaviour: resumed_before_threadsafe_nudge=False, resumed_after_nudge=True, elapsed=0.15072966799993992
 PASS [MESHNODE-STOP-NOOP] static-lifecycle-trace: start awaits an infinite loop; stop only logs
 PASS [MESHNODE-STOP-NOOP] public-stop-call: start_task_done_after_stop=False
 PASS [MESHNODE-STOP-NOOP] real-dispatcher-loop: dispatcher_task_done=False

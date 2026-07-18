@@ -30,12 +30,12 @@ Every concrete `LoRaRadio` exposed by Core must satisfy the receive contract req
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static contract trace | **Passed** | `WsRadio` has no `set_rx_callback`, while `Dispatcher.__init__` calls it unconditionally. |
-| 2 | Dispatcher construction | **Passed** | Creating `Dispatcher(WsRadio(...))` raises `AttributeError`. |
-| 3 | Public node path | **Passed** | Creating `MeshNode` with the same radio fails at the same reachable constructor path. |
+|---|---|---|---|
+| Static runtime trace | Radio/dispatcher construction contract | **Passed** | `WsRadio` has no `set_rx_callback`, while `Dispatcher.__init__` calls it unconditionally before any connection attempt. |
+| Executable reproduction | Dispatcher construction | **Passed** | Creating `Dispatcher(WsRadio(...))` raises `AttributeError` through the real constructor. |
+| Active falsification | Public `MeshNode` path | **Passed** | The public node wrapper reaches the same failure and contains no adapter, normalization or fallback that makes the state unreachable. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 
@@ -80,22 +80,22 @@ See [`implementation-plans/BUG-028/implementation_plan.md`](../implementation-pl
    41 |         if not self.radio_config or not self.ws:
    42 |             return
 ```
-### Evidence 2: `src/openhop_core/node/dispatcher.py` lines 143–154
+### Evidence 2: `src/openhop_core/node/dispatcher.py` lines 173–184
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L143-L154)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L173-L184)
 
 ```text
-  143 |         # Let the node register for packet analysis if it wants
-  144 |         self.packet_analysis_callback: Optional[Callable[[Any, bytes], None]] = None
-  145 | 
-  146 |         # Initialize fallback handler
-  147 |         self._fallback_handler = None
-  148 | 
-  149 |         # Hook up the radio's receive callback - all radios should support this
-  150 |         self.radio.set_rx_callback(self._on_packet_received)
-  151 |         self._logger.info("Registered RX callback with radio")
-  152 | 
-  153 |     def set_contact_book(self, contact_book):
-  154 |         """Set the contact book for decryption operations."""
+  173 |         # Let the node register for packet analysis if it wants
+  174 |         self.packet_analysis_callback: Optional[Callable[[Any, bytes], None]] = None
+  175 | 
+  176 |         # Initialize fallback handler
+  177 |         self._fallback_handler = None
+  178 | 
+  179 |         # Hook up the radio's receive callback - all radios should support this
+  180 |         self.radio.set_rx_callback(self._on_packet_received)
+  181 |         self._logger.info("Registered RX callback with radio")
+  182 | 
+  183 |     def set_contact_book(self, contact_book):
+  184 |         """Set the contact book for decryption operations."""
 ```
 

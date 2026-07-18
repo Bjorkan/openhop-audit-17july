@@ -52,6 +52,7 @@ Former `BUG-002`, `BUG-026`, `POSSIBLE-ENHANCEMENT-019` and `POSSIBLE-ENHANCEMEN
 | [BUG-046](BUG-046/implementation_plan.md) | Confirmed defect | Mesh CLI documents frequency in MHz but stores the value as Hz | OpenHop Repeater |
 | [BUG-047](BUG-047/implementation_plan.md) | Confirmed defect | Local advert interval is saved and displayed but never used by the scheduler | OpenHop Repeater + Web UI |
 | [BUG-048](BUG-048/implementation_plan.md) | Confirmed defect | Mesh CLI flood advert interval writes a key the scheduler never reads | OpenHop Repeater |
+| [BUG-049](BUG-049/implementation_plan.md) | Confirmed defect | Concurrent sends can bypass the client-repeat airtime budget gate | OpenHop Core |
 | [POSSIBLE-ENHANCEMENT-001](POSSIBLE-ENHANCEMENT-001/implementation_plan.md) | Possible enhancement | Possible enhancement — use one typed configuration schema across YAML, API, OpenAPI and UI | OpenHop Repeater + Web UI |
 | [POSSIBLE-ENHANCEMENT-002](POSSIBLE-ENHANCEMENT-002/implementation_plan.md) | Possible enhancement | Possible enhancement — introduce a transactional configuration update service | OpenHop Repeater |
 | [POSSIBLE-ENHANCEMENT-003](POSSIBLE-ENHANCEMENT-003/implementation_plan.md) | Possible enhancement | Possible enhancement — centralize frontend API response normalization | OpenHop Repeater Web UI |

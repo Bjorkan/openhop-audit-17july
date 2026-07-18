@@ -31,7 +31,7 @@ Provides at-least-once or exactly-once semantics by design and makes restart rec
 
 | Repository | Path | Purpose |
 |---|---|---|
-| OpenHop Core | `src/openhop_core/companion/frame_server/commands_messaging.py` | Evidence lines 430–437 |
+| OpenHop Core | `src/openhop_core/companion/frame_server/commands_messaging.py` | Evidence lines 416–423 |
 | OpenHop Core | `src/openhop_core/companion/frame_server/transport.py` | Evidence lines 88–113 |
 | OpenHop Repeater | `repeater/companion/frame_server.py` | Evidence lines 69–99 |
 | OpenHop Core | `src/openhop_core/companion/message_queue.py` | Evidence lines 32–61 |

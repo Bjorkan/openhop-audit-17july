@@ -1,40 +1,39 @@
-# OpenHop Internal Logic and Consistency Audit — 17 July 2026 — Triple-Verified Deep Review
+# OpenHop Internal Logic and Consistency Audit — 17–18 July 2026 — Triple-Verified Deep Review
 
-This edition retains the reverified baseline and continues the audit into radio adapters, parser bounds, thread/async boundaries, lifecycle state, command correlation, historical metrics and Mesh CLI contracts. Every newly reported defect passed three independent checks: a static end-to-end trace, an executable reproduction, and a separate runtime/contract countercheck intended to disprove reachability or show intended behavior.
-
-The supplied 13 July audit was used only as an organisational/layout reference. Its findings were not imported.
+This update independently rechecked every active finding, archived classification, reproduction, source excerpt, severity and implementation plan against only the three supplied ZIP files. Existing claims were treated as untrusted. The supplied Repeater snapshot is byte-identical to the snapshot recorded by the audit; the supplied Core snapshot changed and was fully re-executed.
 
 ## Audited snapshots
 
 | Project | Snapshot | Notes |
 |---|---|---|
-| OpenHop Core | Supplied ZIP, package version `1.1.3.dev7` | No `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
-| OpenHop Repeater | Supplied dynamic-version source snapshot | No generated `_version.py` or `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
-| Previous audit | `openhop-internal-audit-17july-2026-reverified.zip` | Used as the already-reverified baseline; all new claims were independently admitted |
-| Layout reference | `openhop-audit-13july(1).zip` | Structure only |
+| OpenHop Core | `openhop_core-fix-all-the-things-core(1)(3).zip`, package version `1.1.3.dev7` | No `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
+| OpenHop Repeater | `openhop_repeater-fix-all-the-things(1)(3).zip` | Dynamic version source; no `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
+| Existing audit input | `openhop-audit-17july-main(1).zip` | Updated in place; no separate audit-of-audit was created |
 
 ## Reverification result
 
 | Metric | Result |
 |---|---:|
-| Original bug claims reviewed | **27** |
-| Confirmed active defects | **46** |
-| Retracted false positives | **1** (`BUG-002`) |
-| Reclassified from bug to possible enhancement | **1** (`BUG-026` → `POSSIBLE-ENHANCEMENT-018`) |
-| Original possible enhancements reviewed | **20** |
+| Existing active bug reports reviewed | **46** |
+| Confirmed active defects after update | **47** |
+| Retracted false positives retained in archive | **1** (`BUG-002`) |
+| Reclassified defect claims retained in archive | **1** (`BUG-026` → `POSSIBLE-ENHANCEMENT-018`) |
+| Existing active possible enhancements reviewed | **18** |
 | Active possible enhancements | **18** |
-| Enhancement reports merged | **2** (`019`, `020`) |
-| Active implementation plans | **64** |
-| Baseline independent reverification checks | **28 passed** |
-| Newly reported defects | **21** |
-| New independent checks | **63 passed (3 per new defect)** |
-| Explicitly rejected/deferred candidates | **8 documented; 0 reported as bugs** |
+| Merged enhancement reports retained in archive | **2** (`019`, `020`) |
+| Active implementation plans | **65** |
+| Baseline executable reverification checks | **28 passed** |
+| Baseline active-falsification checks | **25/25 passed** |
+| Existing BUG-028–BUG-048 checks | **63/63 passed** |
+| Newly added defect | **1** (`BUG-049`) |
+| New independent checks | **3/3 passed** |
+| Explicitly rejected/deferred candidates | **9 documented; 0 promoted without three checks** |
 | Enhancement premise checks | **20 passed** |
-| Source-excerpt lines checked | **5,838; 0 mismatches** (4,371 baseline + 1,467 new) |
-| Core tests | **1,272 passed** |
-| Repeater tests | **1,222 passed** |
+| Source-excerpt lines checked | **5,901; 0 mismatches** (4,371 baseline + 1,530 BUG-028–BUG-049 evidence) |
+| Core tests | **1,331 passed** |
+| Repeater tests | **1,221 passed, 1 failed, 7 warnings** |
 
-The earlier audit was materially wrong in two classifications. The new search therefore used a stricter admission rule: no candidate was added from static analysis alone.  `BUG-002` is a false positive. The behavior described by former `BUG-026` exists, but the supplied protocol and queue documentation explicitly defines destructive pop and queue-full shedding, so it cannot defensibly remain a bug without a stronger delivery contract.
+All 46 pre-existing active defect reports survived the independent static, executable and falsification review. Source references were corrected where the newer Core snapshot shifted or changed surrounding code. `BUG-049` was added after a concurrency race in the new Core airtime-budget path passed all three admission checks. The sole Repeater test failure is documented as a Core/Repeater snapshot expectation mismatch and was not promoted to a runtime bug without a contradictory external contract.
 
 ## Classification rules
 
@@ -90,6 +89,7 @@ A report remains a **bug** only where the supplied code produces a contradictory
 | 🔴 [BUG-046](findings/BUG-046-mesh-cli-frequency-command-stores-mhz-as-hz.md) | High | Mesh CLI / radio units | OpenHop Repeater | Mesh CLI documents frequency in MHz but stores the value as Hz |
 | 🟠 [BUG-047](findings/BUG-047-local-advert-interval-is-saved-and-displayed-but-never-scheduled.md) | Medium | Advert scheduling / API consistency | OpenHop Repeater + Web UI | Local advert interval is saved and displayed but never used by the scheduler |
 | 🟠 [BUG-048](findings/BUG-048-mesh-cli-flood-advert-interval-writes-the-wrong-key.md) | Medium | Mesh CLI / advert scheduling | OpenHop Repeater | Mesh CLI flood advert interval writes a key the scheduler never reads |
+| 🔴 [BUG-049](findings/BUG-049-concurrent-sends-can-bypass-the-client-repeat-airtime-budget-gate.md) | High | Airtime budget / send concurrency | OpenHop Core | Concurrent sends can bypass the client-repeat airtime budget gate |
 
 ## Possible enhancements
 
@@ -124,20 +124,23 @@ A report remains a **bug** only where the supplied code produces a contradictory
 ## Verification material
 
 - [`docs/REVERIFICATION-REPORT.md`](docs/REVERIFICATION-REPORT.md) — verdict on every original report
-- [`docs/TRIPLE-VERIFICATION-REPORT.md`](docs/TRIPLE-VERIFICATION-REPORT.md) — admission evidence for all 21 new reports
+- [`docs/BASELINE-TRIPLE-VERIFICATION.md`](docs/BASELINE-TRIPLE-VERIFICATION.md) — three-method matrix for `BUG-001`, `BUG-003`–`BUG-025` and `BUG-027`
+- [`docs/BASELINE-FALSIFICATION-CHECKS.py`](docs/BASELINE-FALSIFICATION-CHECKS.py) and [`docs/BASELINE-FALSIFICATION-CHECK-OUTPUT.txt`](docs/BASELINE-FALSIFICATION-CHECK-OUTPUT.txt)
+- [`docs/TRIPLE-VERIFICATION-REPORT.md`](docs/TRIPLE-VERIFICATION-REPORT.md) — admission evidence for BUG-028 through BUG-049
 - [`docs/REJECTED-CANDIDATES.md`](docs/REJECTED-CANDIDATES.md) — candidates intentionally excluded to avoid false positives
 - [`docs/REVERIFICATION-CHECKS.py`](docs/REVERIFICATION-CHECKS.py) and [`docs/REVERIFICATION-CHECK-OUTPUT.txt`](docs/REVERIFICATION-CHECK-OUTPUT.txt)
 - [`docs/ENHANCEMENT-PREMISE-CHECKS.py`](docs/ENHANCEMENT-PREMISE-CHECKS.py) and [`docs/ENHANCEMENT-PREMISE-CHECK-OUTPUT.txt`](docs/ENHANCEMENT-PREMISE-CHECK-OUTPUT.txt)
 - [`docs/EVIDENCE-EXCERPT-VALIDATION.py`](docs/EVIDENCE-EXCERPT-VALIDATION.py) and [`docs/EVIDENCE-EXCERPT-VALIDATION-OUTPUT.txt`](docs/EVIDENCE-EXCERPT-VALIDATION-OUTPUT.txt)
 - [`docs/CORE-FULL-RERUN-OUTPUT.txt`](docs/CORE-FULL-RERUN-OUTPUT.txt), [`docs/REPEATER-FULL-RERUN-OUTPUT.txt`](docs/REPEATER-FULL-RERUN-OUTPUT.txt) and fresh collection summaries
+- [`docs/SOURCE-IMMUTABILITY-VALIDATION-OUTPUT.txt`](docs/SOURCE-IMMUTABILITY-VALIDATION-OUTPUT.txt) — fresh-extraction comparison confirming neither source tree changed
 - [`docs/UI-SOURCE-EXCERPTS.md`](docs/UI-SOURCE-EXCERPTS.md)
 - [`docs/FILE-REVIEW-MATRIX.md`](docs/FILE-REVIEW-MATRIX.md)
-- [`docs/PLAN-VALIDATION.md`](docs/PLAN-VALIDATION.md)
-- [`docs/FINAL-VALIDATION.md`](docs/FINAL-VALIDATION.md)
+- [`docs/PLAN-VALIDATION.md`](docs/PLAN-VALIDATION.md) and [`docs/PLAN-PATH-VALIDATION-OUTPUT.txt`](docs/PLAN-PATH-VALIDATION-OUTPUT.txt)
+- [`docs/FINAL-VALIDATION.md`](docs/FINAL-VALIDATION.md), [`docs/AUDIT-INTEGRITY-VALIDATION-OUTPUT.txt`](docs/AUDIT-INTEGRITY-VALIDATION-OUTPUT.txt) and [`docs/MARKDOWN-LINK-VALIDATION-OUTPUT.txt`](docs/MARKDOWN-LINK-VALIDATION-OUTPUT.txt)
 - [`MANIFEST.sha256`](MANIFEST.sha256)
 
 ## Implementation plans
 
-Every active report links to `implementation-plans/<finding>/implementation_plan.md`. These are review-oriented plans, not ready-to-apply patches. The index contains **46 defect plans** and **18 possible-enhancement plans**.
+Every active report links to `implementation-plans/<finding>/implementation_plan.md`. These are review-oriented plans, not ready-to-apply patches. The index contains **47 defect plans** and **18 possible-enhancement plans**.
 
 - [`implementation-plans/README.md`](implementation-plans/README.md)

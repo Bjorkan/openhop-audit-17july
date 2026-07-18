@@ -30,12 +30,12 @@ The setter must convert MHz to integer Hz with validation before persistence and
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static help/getter/setter trace | **Passed** | Help/get use MHz, setter writes raw value. |
-| 2 | Public command persistence | **Passed** | `869.618` is stored unchanged in the frequency field. |
-| 3 | Live application | **Passed** | ConfigManager converts the stored value to integer 869 and applies it as Hz. |
+|---|---|---|---|
+| Static runtime trace | CLI help/get/set through live apply | **Passed** | Help and getter expose MHz, but the setter stores the raw numeric value in the Hz field consumed by ConfigManager. |
+| Executable reproduction | Public command persistence | **Passed** | `869.618` is stored unchanged in the frequency field. |
+| Active falsification | Live hardware-application path | **Passed** | ConfigManager converts the stored value to integer 869 and applies it as Hz; no unit normalization occurs later. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

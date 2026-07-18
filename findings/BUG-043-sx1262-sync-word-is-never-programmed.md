@@ -17,6 +17,10 @@
 
 Repeater parses and passes `sync_word`; `SX1262Radio` stores it, but initialization never calls `setSyncWord`. The bundled low-level `SX126x.setSyncWord()` itself contains no active register write. The radio therefore uses hardware/default state rather than the configured network sync word.
 
+## Hardware-verification boundary
+
+The missing/no-op programming path is proven in source and executable driver-call traces. Actual SX1262 on-air interoperability was not tested on physical hardware and remains hardware-dependent.
+
 ## Expected behavior
 
 Initialization and live/reconnect configuration must write the configured sync word to the correct SX126x registers and verify the operation where possible.
@@ -30,12 +34,12 @@ Initialization and live/reconnect configuration must write the configured sync w
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static config-to-driver trace | **Passed** | The value is parsed and stored, but no wrapper path calls the low-level setter. |
-| 2 | Low-level call | **Passed** | Calling `setSyncWord(0x3444)` performs zero register writes. |
-| 3 | Full initialization | **Passed** | Fake-hardware initialization records no sync-word operation. |
+|---|---|---|---|
+| Static runtime trace | Configuration through SX1262 driver | **Passed** | The sync word is parsed and stored, no wrapper initialization path calls the setter, and the low-level setter’s register write is commented out. |
+| Executable reproduction | Low-level driver call | **Passed** | Calling `setSyncWord(0x3444)` performs zero register writes. |
+| Active falsification | Full initialization path | **Passed** | Fake-hardware initialization records no sync-word operation; no fallback or alternate setup layer programs it. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

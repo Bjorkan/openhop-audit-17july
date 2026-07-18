@@ -1,18 +1,20 @@
-# Verification notes — triple-verified deep review
+# Verification notes — independently updated triple-verified deep review
 
-Material corrections to the previous audit:
+Material classification corrections retained from the existing audit:
 
-- `BUG-002` was a false positive caused by omitting the shared API wrapper from the object-shape analysis.
-- `BUG-026` described real loss behavior, but that behavior is consistent with the supplied documented destructive-pop and backpressure-shedding semantics. It is therefore reclassified into `POSSIBLE-ENHANCEMENT-018` rather than retained as a bug.
-- `BUG-017` is conditional and its severity is reduced from High to Medium.
-- `BUG-018` is a real helper-contract defect, but no supplied call sites were found; it is marked latent and Low.
-- `BUG-025` is narrowed to callable objects and synchronous wrappers that return awaitables.
+- `BUG-002` remains a retracted false positive because the shared API wrapper preserves the expected response envelope.
+- `BUG-026` remains reclassified into `POSSIBLE-ENHANCEMENT-018`; destructive pop and backpressure shedding are documented semantics rather than a proven contract violation.
+- `BUG-017` remains conditional and Medium severity.
+- `BUG-018` remains a latent Low-severity helper-contract defect because no supplied call sites were found.
+- `BUG-025` remains narrowed to callable objects and synchronous wrappers that return awaitables.
 
-The independent check suite asserts the confirmed bad behavior and also asserts the negative evidence for the retracted/reclassified claims. It is supporting evidence, not a substitute for regression tests in the owning repositories.
+## 18 July independent update
 
-## Deep-review admission controls
+- Every existing active report, reproduction, source reference, severity and plan was treated as untrusted and rechecked against the supplied snapshots.
+- `BUG-028` through `BUG-049` have three independent checks each; `BUG-049` is the only newly added defect.
+- Nine plausible-looking candidates are rejected or deferred because reachability, intent or an explicit contradictory contract was not established.
+- Core passes **1,331/1,331** tests. Repeater runs **1,222** tests against the supplied Core and reports **1,221 passed, 1 failed, 7 warnings** due to an `airtime_factor` default expectation mismatch.
+- BUG-028–BUG-049 source excerpts cover **1,530 lines across 60 ranges**; all active findings together contain **5,901 checked source lines with zero mismatches**.
+- Fourteen existing evidence ranges were moved or regenerated to match the newer Core snapshot without changing the underlying findings.
 
-- `BUG-028` through `BUG-048` were admitted only after three independent checks each.
-- Eight plausible-looking candidates were rejected or deferred because reachability, intent or an explicit contradictory contract could not be established.
-- Both full project suites were rerun separately and exited successfully after the focused checks.
-- New source excerpts cover 1,467 lines across 57 ranges and match the supplied snapshots byte-for-byte.
+The focused checks support the reports but do not replace regression tests in the owning repositories. Physical radio effects are not claimed as confirmed without hardware execution.

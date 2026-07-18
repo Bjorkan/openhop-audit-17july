@@ -30,12 +30,12 @@ Historical totals must integrate rates over step duration, or the RRD schema mus
 ## Triple verification
 
 | Method | Check | Result | Observation |
-|---:|---|---|---|
-| 1 | Static datasource/reader contradiction | **Passed** | RRD defines `COUNTER`; both readers compute differences between fetched values. |
-| 2 | Packet-type reader | **Passed** | Ten constant non-zero rate samples produce total zero. |
-| 3 | Dashboard buckets | **Passed** | Constant RX/TX rates produce zero counts in every bucket. |
+|---|---|---|---|
+| Static runtime trace | RRD datasource to readers | **Passed** | RRD declares `COUNTER`, which returns rates, but both readers subtract successive fetched values as though they were cumulative counters. |
+| Executable reproduction | Packet-type reader | **Passed** | Ten constant non-zero rate samples produce a total of zero. |
+| Active falsification | Independent dashboard aggregation | **Passed** | Constant RX/TX rates produce zero in every dashboard bucket, confirming the contradiction in a separate consumer. |
 
-The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition.
+The executable checks are preserved under [`docs/triple-verification/`](../docs/triple-verification/) and were rerun from clean Python processes for this edition. The third row is an explicit falsification/countercheck that searches for a guard, alternate adapter, normalization, documented contract or unreachable-state explanation that would invalidate the finding.
 
 ## Implementation plan
 

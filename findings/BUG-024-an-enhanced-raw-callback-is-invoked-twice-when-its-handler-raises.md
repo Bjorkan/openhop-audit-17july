@@ -2,16 +2,17 @@
 
 [← Audit index](../README.md)
 
-> Reverification verdict: **Confirmed against the supplied snapshot.**
+> Triple-verification verdict: **confirmed against the supplied snapshots**. The finding survived an independent static runtime trace, executable reproduction and active falsification pass on 18 July 2026.
 
 | Field | Value |
 |---|---|
 | Classification | **Confirmed defect** |
 | Severity | **Medium** |
-| Confidence | **Confirmed** |
+| Confidence | **Triple-verified** |
 | Area | Callback dispatch / side effects |
 | Components | OpenHop Core |
 | Audit date | 2026-07-17 |
+| Independent recheck | 2026-07-18 |
 | Status | Open in supplied snapshot |
 
 ## TL;DR
@@ -34,6 +35,16 @@ Inspect/bind the callable signature before the call, or register callback capabi
 
 The deeper focused check used a variadic callback that increments a counter and raises only on the enhanced call. The current helper invoked it twice.
 
+## Triple verification
+
+| Method | Result | Record |
+|---|---|---|
+| Static runtime trace | **Passed** | The complete reachable path and exact quoted source excerpts in this report were revalidated byte-for-byte against the supplied source trees. |
+| Executable reproduction | **Passed** | `test_bug_024_confirmed_handler_exception_is_misread_as_arity_failure_and_retried` in [`REVERIFICATION-CHECKS.py`](../docs/REVERIFICATION-CHECKS.py). |
+| Active falsification | **Passed** | Fallback is triggered by any handler exception rather than pre-binding callback arity. See [`BASELINE-FALSIFICATION-CHECKS.py`](../docs/BASELINE-FALSIFICATION-CHECKS.py). |
+
+The consolidated baseline matrix and captured results are in [`BASELINE-TRIPLE-VERIFICATION.md`](../docs/BASELINE-TRIPLE-VERIFICATION.md).
+
 ## Implementation plan
 
 The former patch sketch has been replaced with a review-oriented plan covering the required repositories/files, implementation sequence, decisions to verify, regression tests, rollout and definition of done.
@@ -43,44 +54,44 @@ The former patch sketch has been replaced with a review-oriented plan covering t
 
 ## Source references and excerpts
 
-### Evidence 1: `src/openhop_core/node/dispatcher.py` lines 772–806
+### Evidence 1: `src/openhop_core/node/dispatcher.py` lines 1082–1116
 
-[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L772-L806)
+[Open source path](https://github.com/openhop-dev/openhop_core/blob/dev/src/openhop_core/node/dispatcher.py#L1082-L1116)
 
 ```text
-  772 |     async def _invoke_callback(self, cb, pkt: Packet) -> None:
-  773 |         if inspect.iscoroutinefunction(cb):
-  774 |             await cb(pkt)
-  775 |         else:
-  776 |             cb(pkt)
-  777 | 
-  778 |     async def _invoke_ack_listener(self, crc: int) -> None:
-  779 |         """Invoke ack-received listener (sync or async)."""
-  780 |         cb = self._ack_received_listener
-  781 |         if cb is None:
-  782 |             return
-  783 |         if inspect.iscoroutinefunction(cb):
-  784 |             await cb(crc)
-  785 |         else:
-  786 |             cb(crc)
-  787 | 
-  788 |     async def _invoke_enhanced_raw_callback(
-  789 |         self, callback, pkt: Packet, data: bytes, analysis: dict
-  790 |     ) -> None:
-  791 |         """Call raw packet callback with extra analysis data."""
-  792 |         try:
-  793 |             if inspect.iscoroutinefunction(callback):
-  794 |                 await callback(pkt, data, analysis)
-  795 |             else:
-  796 |                 callback(pkt, data, analysis)
-  797 |         except Exception as e:
-  798 |             self._log(f"Raw callback error: {e}")
-  799 |             # Fallback to original callback format
-  800 |             try:
-  801 |                 if inspect.iscoroutinefunction(callback):
-  802 |                     await callback(pkt, data)
-  803 |                 else:
-  804 |                     callback(pkt, data)
-  805 |             except Exception as e2:
-  806 |                 self._log(f"Fallback raw callback error: {e2}")
+ 1082 |     async def _invoke_callback(self, cb, pkt: Packet) -> None:
+ 1083 |         if inspect.iscoroutinefunction(cb):
+ 1084 |             await cb(pkt)
+ 1085 |         else:
+ 1086 |             cb(pkt)
+ 1087 | 
+ 1088 |     async def _invoke_ack_listener(self, crc: int) -> None:
+ 1089 |         """Invoke ack-received listener (sync or async)."""
+ 1090 |         cb = self._ack_received_listener
+ 1091 |         if cb is None:
+ 1092 |             return
+ 1093 |         if inspect.iscoroutinefunction(cb):
+ 1094 |             await cb(crc)
+ 1095 |         else:
+ 1096 |             cb(crc)
+ 1097 | 
+ 1098 |     async def _invoke_enhanced_raw_callback(
+ 1099 |         self, callback, pkt: Packet, data: bytes, analysis: dict
+ 1100 |     ) -> None:
+ 1101 |         """Call raw packet callback with extra analysis data."""
+ 1102 |         try:
+ 1103 |             if inspect.iscoroutinefunction(callback):
+ 1104 |                 await callback(pkt, data, analysis)
+ 1105 |             else:
+ 1106 |                 callback(pkt, data, analysis)
+ 1107 |         except Exception as e:
+ 1108 |             self._log(f"Raw callback error: {e}")
+ 1109 |             # Fallback to original callback format
+ 1110 |             try:
+ 1111 |                 if inspect.iscoroutinefunction(callback):
+ 1112 |                     await callback(pkt, data)
+ 1113 |                 else:
+ 1114 |                     callback(pkt, data)
+ 1115 |             except Exception as e2:
+ 1116 |                 self._log(f"Fallback raw callback error: {e2}")
 ```
