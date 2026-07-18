@@ -1,0 +1,17 @@
+Set command error: cannot unpack non-iterable bool object
+PASS [SX1262-SYNC-WORD-NOT-PROGRAMMED] static-config-to-driver-trace: Repeater passes sync_word into SX1262Radio and the wrapper stores it, but no wrapper path calls setSyncWord.
+PASS [SX1262-SYNC-WORD-NOT-PROGRAMMED] direct-low-level-runtime: setSyncWord(0x3444) produced register_writes=[]
+PASS [SX1262-SYNC-WORD-NOT-PROGRAMMED] full-wrapper-initialization: begin=True; hardware calls=['setSpi', 'reset', 'setStandby', 'busyCheck', 'setPacketType', 'setRegulatorMode', 'calibrate', 'calibrateImage', 'setDio2RfSwitch', 'setRfFrequency', 'setBufferBaseAddress', 'setTxPower', 'setLoRaModulation', 'setPacketParamsLoRa', 'clearIrqStatus', 'setDioIrqParams', 'setRxGain', 'request']; no sync-word operation was issued despite configured 0x3444.
+PASS [MESHCLI-SAVE-RETURN-CONTRACT-MISMATCH] static-signature-and-callsite-trace: ConfigManager returns bool; MeshCLI contains 23 tuple-unpack call sites.
+PASS [MESHCLI-SAVE-RETURN-CONTRACT-MISMATCH] real-config-manager-public-command: reply='Error: cannot unpack non-iterable bool object'; persisted_contains_after=True; live update was skipped after the successful write.
+PASS [MESHCLI-SAVE-RETURN-CONTRACT-MISMATCH] test-double-countercheck: MeshCLI tests mock the obsolete tuple return while the production ConfigManager returns bool, explaining why the regression suite passes.
+PASS [MESHCLI-SECURITY-WRITES-WRONG-CONFIG-SUBTREE] static-writer-reader-path-mismatch: MeshCLI writes top-level security.password/guest_password; login reads repeater.security.admin_password/guest_password.
+PASS [MESHCLI-SECURITY-WRITES-WRONG-CONFIG-SUBTREE] dynamic-command-state-separation: CLI replies=('password now: new-admin','OK'); authentication subtree remains {'admin_password': 'old-admin', 'guest_password': 'old-guest'}.
+PASS [MESHCLI-SECURITY-WRITES-WRONG-CONFIG-SUBTREE] actual-login-helper-countercheck: LoginHelper built ACL credentials admin='old-admin', guest='old-guest' after CLI claimed the new values were accepted.
+PASS [MQTT-HEARTBEAT-RESTART-CANDIDATE] runtime-reachability-countercheck: StorageCollector constructs/connects once and disconnects only during close; no in-repo restart of the same publisher object was found. Candidate must not be reported as an active bug.
+
+SUMMARY
+SX1262-SYNC-WORD-NOT-PROGRAMMED: 3/3
+MESHCLI-SAVE-RETURN-CONTRACT-MISMATCH: 3/3
+MESHCLI-SECURITY-WRITES-WRONG-CONFIG-SUBTREE: 3/3
+MQTT-HEARTBEAT-RESTART-CANDIDATE: 1/1

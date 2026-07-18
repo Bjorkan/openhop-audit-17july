@@ -1,0 +1,10 @@
+PASS [WEBSOCKET-HEARTBEAT-THREAD-DUPLICATION] static-shared-flag-without-join: Shutdown drops the thread reference without joining; old and new loops share the same restartable boolean.
+PASS [WEBSOCKET-HEARTBEAT-THREAD-DUPLICATION] dynamic-immediate-restart-keeps-old-thread: old_alive_when_reference_would_be_dropped=True, both_alive_after_restart=True
+PASS [WEBSOCKET-HEARTBEAT-THREAD-DUPLICATION] observable-duplicate-heartbeats: ping_sends_in_80ms=4; both surviving loops send to the same client set
+PASS [RRD-COUNTERS-INTERPRETED-AS-CUMULATIVE-VALUES] static-datasource-vs-reader-semantics: RRD data sources are COUNTER, whose fetched values are rates, but both readers subtract fetched samples as if cumulative totals.
+PASS [RRD-COUNTERS-INTERPRETED-AS-CUMULATIVE-VALUES] dynamic-packet-type-total-collapses-constant-rate: constant fetched rate=2.0 for 10 samples produced total=0, although traffic is non-zero
+PASS [RRD-COUNTERS-INTERPRETED-AS-CUMULATIVE-VALUES] dashboard-buckets-drop-steady-traffic: constant non-zero fetched rates produced rx_total=0, tx_total=0
+
+SUMMARY
+RRD-COUNTERS-INTERPRETED-AS-CUMULATIVE-VALUES: 3/3
+WEBSOCKET-HEARTBEAT-THREAD-DUPLICATION: 3/3

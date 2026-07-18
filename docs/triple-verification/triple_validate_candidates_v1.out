@@ -1,0 +1,42 @@
+Auto-configuration failed, KISS mode not active
+TX worker error: cable removed
+Timeout: cmd=0x10 → expected 0x12
+Timeout: cmd=0x10 → expected 0x12
+PASS [WSRADIO-DISPATCHER-CONTRACT] static-contract-trace: missing_callback=True, unconditional_registration=True, run_forever_uses_fallback=False
+PASS [WSRADIO-DISPATCHER-CONTRACT] dispatcher-construction: exception=AttributeError("'WsRadio' object has no attribute 'set_rx_callback'")
+PASS [WSRADIO-DISPATCHER-CONTRACT] public-meshnode-path: exception=AttributeError("'WsRadio' object has no attribute 'set_rx_callback'")
+PASS [NO-METADATA-SEND-REJECTED] static-contract-contradiction: LoRaRadio permits None; KISS returns None after queue success; Dispatcher treats None as failure
+PASS [NO-METADATA-SEND-REJECTED] direct-wrapper-success: direct_return=None, queued=[b'abc', b'payload']
+PASS [NO-METADATA-SEND-REJECTED] dispatcher-integration: physical_queue_success=True, dispatcher_result=False
+PASS [KISS-UNBOUNDED-RX-FRAME] bytewise-decoder: buffer=10240, max=512
+PASS [KISS-UNBOUNDED-RX-FRAME] bulk-decoder: buffer=51200, max=512
+PASS [KISS-UNBOUNDED-RX-FRAME] worker-like-chunk-stream: buffer=131072, max=512
+PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] static-thread-hop-trace: RX worker invokes callback synchronously; callback directly calls Future.set_result
+PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] debug-event-loop-runtime: callback_exception=RuntimeError('Non-thread-safe operation invoked on an event loop other than the current one'), task_done=False, waiter_resumed=False
+PASS [KISS-WAIT-FOR-RX-CROSS-THREAD] release-loop-wakeup-behaviour: resumed_before_threadsafe_nudge=False, resumed_after_nudge=True, elapsed=0.15116628099895024
+PASS [MESHNODE-STOP-NOOP] static-lifecycle-trace: start awaits an infinite loop; stop only logs
+PASS [MESHNODE-STOP-NOOP] public-stop-call: start_task_done_after_stop=False
+PASS [MESHNODE-STOP-NOOP] real-dispatcher-loop: dispatcher_task_done=False
+PASS [KISS-STALE-CONNECTION-STATE] auto-config-failure: result=False, connected=True, serial_open=True, threads_started=[True, True]
+PASS [KISS-STALE-CONNECTION-STATE] tx-worker-exception: worker_exited=True, connected=True, later_queue_accept=True, queue_len=1
+PASS [KISS-STALE-CONNECTION-STATE] context-manager-contract: connect_return=False, context_entered=True, exception=None
+PASS [KISS-CONFIG-MUTATED-ON-QUEUE-FAILURE] static-operation-order: config_update_offset=479, queue_capacity_check_offset=1008
+PASS [KISS-CONFIG-MUTATED-ON-QUEUE-FAILURE] full-queue-runtime: result=False, before=30, after=40, queued=1024
+PASS [KISS-CONFIG-MUTATED-ON-QUEUE-FAILURE] wire-state-countercheck: local=99, new_command_present=False
+PASS [RADIO-RESPONSE-WAITER-COLLISION] static-correlation-key: both drivers correlate only by expected command byte and have no command-level lock
+PASS [RADIO-RESPONSE-WAITER-COLLISION] tcp-focused-concurrency: sent_commands=2, results=[None, b'one-response']
+PASS [RADIO-RESPONSE-WAITER-COLLISION] usb-focused-concurrency: sent_commands=2, results=[None, b'one-response']
+PASS [USB-LIVE-CONFIG-NOT-PUSHED] static-setter-trace: all ConfigManager-visible USB setters only mutate Python attributes and return True
+PASS [USB-LIVE-CONFIG-NOT-PUSHED] direct-setter-runtime: result=True, python_frequency=869619000, serial_writes=0
+PASS [USB-LIVE-CONFIG-NOT-PUSHED] repeater-config-manager-integration: manager_result=True, local_frequency=869620000, serial_writes=0
+
+SUMMARY
+WSRADIO-DISPATCHER-CONTRACT: 3/3
+NO-METADATA-SEND-REJECTED: 3/3
+KISS-UNBOUNDED-RX-FRAME: 3/3
+KISS-WAIT-FOR-RX-CROSS-THREAD: 3/3
+MESHNODE-STOP-NOOP: 3/3
+KISS-STALE-CONNECTION-STATE: 3/3
+KISS-CONFIG-MUTATED-ON-QUEUE-FAILURE: 3/3
+RADIO-RESPONSE-WAITER-COLLISION: 3/3
+USB-LIVE-CONFIG-NOT-PUSHED: 3/3

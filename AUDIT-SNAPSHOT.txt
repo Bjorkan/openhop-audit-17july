@@ -1,4 +1,4 @@
-OpenHop internal logic and consistency audit snapshot — reverified edition
+OpenHop internal logic and consistency audit snapshot — triple-verified deep review
 Generated: 2026-07-17 (Europe/Stockholm)
 
 INPUT ZIP SHA256
@@ -21,13 +21,22 @@ Core full suite:             1272 passed
 Repeater full suite:         1222 passed
 Independent checks:          28 passed
 Enhancement premise checks:  20 passed
-Quoted evidence lines:       4371 checked, 0 mismatches
+Quoted evidence lines:       5838 checked, 0 mismatches (4371 baseline + 1467 new)
 
 FINAL ACTIVE CLASSIFICATION
-Confirmed defects:           25
+Confirmed defects:           46
 Retracted defect claims:     1
 Reclassified defect claims:  1
 Possible enhancements:       18
 Merged enhancement reports:  2
-Active implementation plans: 43
+Active implementation plans: 64
 Former patch files:          removed
+
+DEEP-REVIEW ADDITION
+New defect reports:          21
+Independent new checks:      63 passed (3 per report)
+Rejected/deferred candidates: 8 documented
+Verification scripts:        5 rerun successfully
+Core full-suite rerun:       1272 collected; 100%; exit 0
+Repeater full-suite rerun:   1222 collected; 100%; exit 0
+Absolute false-positive guarantee: not claimed; confirmed against supplied snapshots

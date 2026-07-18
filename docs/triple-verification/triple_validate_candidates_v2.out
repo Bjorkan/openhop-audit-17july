@@ -1,0 +1,18 @@
+[PASS] GLOBAL-COMMAND-RESPONSE-SLOT / static-unkeyed-slot: A single handler-wide callback is installed; the receive branch has no expected sender or CLI_DATA check.
+[PASS] GLOBAL-COMMAND-RESPONSE-SLOT / dynamic-unrelated-plain-message: An ordinary TXT_TYPE_PLAIN message from a contact satisfies the command callback and is omitted from normal delivery.
+[PASS] GLOBAL-COMMAND-RESPONSE-SLOT / public-api-overlap-misroutes-response: The second public command call completes as B using a response explicitly supplied from A; A remains pending.
+[PASS] GLOBAL-LOGIN-RESPONSE-SLOT / static-global-callback-vs-keyed-passwords: Passwords are keyed by destination hash, but completion is routed through one global callback replaced by every request.
+[PASS] GLOBAL-LOGIN-RESPONSE-SLOT / dynamic-overlap-misroutes-login-result: The active B request completes using callback data supplied for A, while A remains pending.
+[PASS] GLOBAL-LOGIN-RESPONSE-SLOT / older-cleanup-clears-newer-waiter: Cleanup from an older login request globally removes the callback installed by the newer request.
+[PASS] FRAME-SERVER-CLEARS-EXTERNAL-PUSH-CALLBACKS / static-clear-all-before-register: Every frame-client setup calls the bridge-wide clear_push_callbacks rather than removing only the prior frame-server listeners.
+[PASS] FRAME-SERVER-CLEARS-EXTERNAL-PUSH-CALLBACKS / dynamic-registration-removes-third-party-listener: A pre-existing external listener is removed immediately when the frame server installs its callbacks.
+[PASS] FRAME-SERVER-CLEARS-EXTERNAL-PUSH-CALLBACKS / runtime-reconnect-silences-once-registered-consumer: After the frame-server reconnect setup, the external once-registered consumer receives no subsequent event.
+[PASS] COMPANION-PREFS-PERSISTENCE-FALSE-SUCCESS / static-return-value-discarded: The SQLite persistence method returns bool, but _save_prefs discards it and exposes no failure to setters.
+[PASS] COMPANION-PREFS-PERSISTENCE-FALSE-SUCCESS / dynamic-setter-reports-no-error-after-failed-save: The public setter returns normally and mutates runtime state although persistence explicitly returned False.
+[PASS] COMPANION-PREFS-PERSISTENCE-FALSE-SUCCESS / restart-reverts-successfully-returned-change: A fresh bridge loads the old persisted value, proving the accepted runtime change is lost on restart.
+
+SUMMARY
+GLOBAL-COMMAND-RESPONSE-SLOT: 3/3
+GLOBAL-LOGIN-RESPONSE-SLOT: 3/3
+FRAME-SERVER-CLEARS-EXTERNAL-PUSH-CALLBACKS: 3/3
+COMPANION-PREFS-PERSISTENCE-FALSE-SUCCESS: 3/3

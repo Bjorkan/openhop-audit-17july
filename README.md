@@ -1,6 +1,6 @@
-# OpenHop Internal Logic and Consistency Audit — 17 July 2026 — Reverified Edition
+# OpenHop Internal Logic and Consistency Audit — 17 July 2026 — Triple-Verified Deep Review
 
-This edition treats every conclusion in the earlier 17 July audit as untrusted. Both source ZIPs were extracted again, every report was traced through reachable runtime paths and documented contracts, the complete project test suites were rerun, and independent checks were written rather than accepting the earlier reproduction scripts as proof.
+This edition retains the reverified baseline and continues the audit into radio adapters, parser bounds, thread/async boundaries, lifecycle state, command correlation, historical metrics and Mesh CLI contracts. Every newly reported defect passed three independent checks: a static end-to-end trace, an executable reproduction, and a separate runtime/contract countercheck intended to disprove reachability or show intended behavior.
 
 The supplied 13 July audit was used only as an organisational/layout reference. Its findings were not imported.
 
@@ -10,7 +10,7 @@ The supplied 13 July audit was used only as an organisational/layout reference. 
 |---|---|---|
 | OpenHop Core | Supplied ZIP, package version `1.1.3.dev7` | No `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
 | OpenHop Repeater | Supplied dynamic-version source snapshot | No generated `_version.py` or `.git` metadata; SHA-256 in `AUDIT-SNAPSHOT.txt` |
-| Previous audit | `openhop-internal-audit-17july-2026-implementation-plans.zip` | Treated as an untrusted claim set |
+| Previous audit | `openhop-internal-audit-17july-2026-reverified.zip` | Used as the already-reverified baseline; all new claims were independently admitted |
 | Layout reference | `openhop-audit-13july(1).zip` | Structure only |
 
 ## Reverification result
@@ -18,20 +18,23 @@ The supplied 13 July audit was used only as an organisational/layout reference. 
 | Metric | Result |
 |---|---:|
 | Original bug claims reviewed | **27** |
-| Confirmed active defects | **25** |
+| Confirmed active defects | **46** |
 | Retracted false positives | **1** (`BUG-002`) |
 | Reclassified from bug to possible enhancement | **1** (`BUG-026` → `POSSIBLE-ENHANCEMENT-018`) |
 | Original possible enhancements reviewed | **20** |
 | Active possible enhancements | **18** |
 | Enhancement reports merged | **2** (`019`, `020`) |
-| Active implementation plans | **43** |
-| Independent reverification checks | **28 passed** |
+| Active implementation plans | **64** |
+| Baseline independent reverification checks | **28 passed** |
+| Newly reported defects | **21** |
+| New independent checks | **63 passed (3 per new defect)** |
+| Explicitly rejected/deferred candidates | **8 documented; 0 reported as bugs** |
 | Enhancement premise checks | **20 passed** |
-| Source-excerpt lines checked | **4,371; 0 mismatches** |
+| Source-excerpt lines checked | **5,838; 0 mismatches** (4,371 baseline + 1,467 new) |
 | Core tests | **1,272 passed** |
 | Repeater tests | **1,222 passed** |
 
-The earlier audit was materially wrong in two classifications. `BUG-002` is a false positive. The behavior described by former `BUG-026` exists, but the supplied protocol and queue documentation explicitly defines destructive pop and queue-full shedding, so it cannot defensibly remain a bug without a stronger delivery contract.
+The earlier audit was materially wrong in two classifications. The new search therefore used a stricter admission rule: no candidate was added from static analysis alone.  `BUG-002` is a false positive. The behavior described by former `BUG-026` exists, but the supplied protocol and queue documentation explicitly defines destructive pop and queue-full shedding, so it cannot defensibly remain a bug without a stronger delivery contract.
 
 ## Classification rules
 
@@ -66,6 +69,27 @@ A report remains a **bug** only where the supplied code produces a contradictory
 | 🟠 [BUG-024](findings/BUG-024-an-enhanced-raw-callback-is-invoked-twice-when-its-handler-raises.md) | Medium | Callback dispatch / side effects | OpenHop Core | An enhanced raw callback is invoked twice when its handler raises |
 | 🟠 [BUG-025](findings/BUG-025-callbacks-returning-awaitables-from-synchronous-wrappers-are-silently-not-awaited.md) | Medium | Callback dispatch / async interoperability | OpenHop Core | Callbacks returning awaitables from synchronous wrappers are silently not awaited |
 | 🔴 [BUG-027](findings/BUG-027-concurrent-message-persistence-can-remove-a-different-newer-message-from-memory.md) | High | Companion persistence / concurrency | OpenHop Core + OpenHop Repeater | Concurrent message persistence can remove a different, newer message from memory |
+| 🔴 [BUG-028](findings/BUG-028-wsradio-cannot-be-used-with-the-dispatcher.md) | High | Radio abstraction / construction | OpenHop Core | WsRadio cannot be used with Dispatcher or MeshNode |
+| 🟠 [BUG-029](findings/BUG-029-successful-kiss-queueing-is-reported-as-send-failure.md) | Medium | Transmission result contract | OpenHop Core | Successful KISS queueing is reported as a transmission failure |
+| 🔴 [BUG-030](findings/BUG-030-unterminated-kiss-rx-frames-grow-without-bound.md) | High | KISS parser / memory safety | OpenHop Core | Unterminated KISS receive frames can grow memory without bound |
+| 🔴 [BUG-031](findings/BUG-031-kiss-wait-for-rx-completes-an-asyncio-future-from-a-worker-thread.md) | High | Threading / asyncio interoperability | OpenHop Core | KISS wait_for_rx() completes an asyncio future from the serial worker thread |
+| 🟠 [BUG-032](findings/BUG-032-meshnode-stop-does-not-stop-the-running-node.md) | Medium | Lifecycle / shutdown | OpenHop Core | MeshNode.stop() does not stop a running node |
+| 🔴 [BUG-033](findings/BUG-033-kiss-connection-state-remains-healthy-after-worker-or-config-failure.md) | High | KISS connection lifecycle | OpenHop Core | KISS connection state remains healthy after initialization or worker failure |
+| 🟠 [BUG-034](findings/BUG-034-failed-kiss-config-queueing-still-mutates-local-config.md) | Medium | KISS configuration transaction | OpenHop Core | Rejected KISS configuration commands still mutate local configuration |
+| 🔴 [BUG-035](findings/BUG-035-concurrent-radio-commands-with-the-same-response-type-collide.md) | High | Radio protocol concurrency | OpenHop Core | Concurrent radio commands expecting the same response type overwrite one another |
+| 🔴 [BUG-036](findings/BUG-036-usb-live-radio-settings-never-reach-the-modem.md) | High | USB radio live configuration | OpenHop Core + OpenHop Repeater | USB live radio setters report success without sending configuration to the modem |
+| 🔴 [BUG-037](findings/BUG-037-command-responses-use-one-global-unkeyed-slot.md) | High | Companion command correlation | OpenHop Core | Companion command responses use one global unkeyed callback slot |
+| 🔴 [BUG-038](findings/BUG-038-login-responses-use-one-global-unkeyed-slot.md) | High | Companion login correlation | OpenHop Core | Companion login responses use one global completion slot |
+| 🔴 [BUG-039](findings/BUG-039-frame-server-reconnect-removes-unrelated-push-listeners.md) | High | Companion callback lifecycle | OpenHop Core + OpenHop Repeater | Frame-server callback setup removes unrelated bridge listeners |
+| 🟠 [BUG-040](findings/BUG-040-companion-preference-save-failures-are-reported-as-success.md) | Medium | Companion preference persistence | OpenHop Repeater | Companion preference save failures are reported as successful runtime changes |
+| 🟠 [BUG-041](findings/BUG-041-websocket-restart-can-create-duplicate-heartbeat-threads.md) | Medium | WebSocket lifecycle | OpenHop Repeater | WebSocket restart can leave duplicate heartbeat threads running |
+| 🔴 [BUG-042](findings/BUG-042-rrd-counter-rates-are-treated-as-cumulative-counters.md) | High | Historical metrics / RRD | OpenHop Repeater + Web UI | RRD COUNTER rates are treated as cumulative counter values |
+| 🔴 [BUG-043](findings/BUG-043-sx1262-sync-word-is-never-programmed.md) | High | SX1262 hardware configuration | OpenHop Core + OpenHop Repeater | Configured SX1262 sync word is never programmed |
+| 🔴 [BUG-044](findings/BUG-044-mesh-cli-uses-an-obsolete-save-return-contract.md) | High | Mesh CLI / persistence contract | OpenHop Repeater | Mesh CLI uses an obsolete configuration-save return contract |
+| 🔴 [BUG-045](findings/BUG-045-mesh-cli-security-commands-write-the-wrong-config-section.md) | High | Authentication configuration | OpenHop Repeater | Mesh CLI security commands write a configuration section authentication does not read |
+| 🔴 [BUG-046](findings/BUG-046-mesh-cli-frequency-command-stores-mhz-as-hz.md) | High | Mesh CLI / radio units | OpenHop Repeater | Mesh CLI documents frequency in MHz but stores the value as Hz |
+| 🟠 [BUG-047](findings/BUG-047-local-advert-interval-is-saved-and-displayed-but-never-scheduled.md) | Medium | Advert scheduling / API consistency | OpenHop Repeater + Web UI | Local advert interval is saved and displayed but never used by the scheduler |
+| 🟠 [BUG-048](findings/BUG-048-mesh-cli-flood-advert-interval-writes-the-wrong-key.md) | Medium | Mesh CLI / advert scheduling | OpenHop Repeater | Mesh CLI flood advert interval writes a key the scheduler never reads |
 
 ## Possible enhancements
 
@@ -100,17 +124,20 @@ A report remains a **bug** only where the supplied code produces a contradictory
 ## Verification material
 
 - [`docs/REVERIFICATION-REPORT.md`](docs/REVERIFICATION-REPORT.md) — verdict on every original report
+- [`docs/TRIPLE-VERIFICATION-REPORT.md`](docs/TRIPLE-VERIFICATION-REPORT.md) — admission evidence for all 21 new reports
+- [`docs/REJECTED-CANDIDATES.md`](docs/REJECTED-CANDIDATES.md) — candidates intentionally excluded to avoid false positives
 - [`docs/REVERIFICATION-CHECKS.py`](docs/REVERIFICATION-CHECKS.py) and [`docs/REVERIFICATION-CHECK-OUTPUT.txt`](docs/REVERIFICATION-CHECK-OUTPUT.txt)
 - [`docs/ENHANCEMENT-PREMISE-CHECKS.py`](docs/ENHANCEMENT-PREMISE-CHECKS.py) and [`docs/ENHANCEMENT-PREMISE-CHECK-OUTPUT.txt`](docs/ENHANCEMENT-PREMISE-CHECK-OUTPUT.txt)
 - [`docs/EVIDENCE-EXCERPT-VALIDATION.py`](docs/EVIDENCE-EXCERPT-VALIDATION.py) and [`docs/EVIDENCE-EXCERPT-VALIDATION-OUTPUT.txt`](docs/EVIDENCE-EXCERPT-VALIDATION-OUTPUT.txt)
-- [`docs/CORE-TEST-OUTPUT.txt`](docs/CORE-TEST-OUTPUT.txt), [`docs/REPEATER-TEST-OUTPUT.txt`](docs/REPEATER-TEST-OUTPUT.txt) and collection summaries
+- [`docs/CORE-FULL-RERUN-OUTPUT.txt`](docs/CORE-FULL-RERUN-OUTPUT.txt), [`docs/REPEATER-FULL-RERUN-OUTPUT.txt`](docs/REPEATER-FULL-RERUN-OUTPUT.txt) and fresh collection summaries
 - [`docs/UI-SOURCE-EXCERPTS.md`](docs/UI-SOURCE-EXCERPTS.md)
 - [`docs/FILE-REVIEW-MATRIX.md`](docs/FILE-REVIEW-MATRIX.md)
 - [`docs/PLAN-VALIDATION.md`](docs/PLAN-VALIDATION.md)
+- [`docs/FINAL-VALIDATION.md`](docs/FINAL-VALIDATION.md)
 - [`MANIFEST.sha256`](MANIFEST.sha256)
 
 ## Implementation plans
 
-Every active report links to `implementation-plans/<finding>/implementation_plan.md`. These are review-oriented plans, not ready-to-apply patches. The index contains **25 defect plans** and **18 possible-enhancement plans**.
+Every active report links to `implementation-plans/<finding>/implementation_plan.md`. These are review-oriented plans, not ready-to-apply patches. The index contains **46 defect plans** and **18 possible-enhancement plans**.
 
 - [`implementation-plans/README.md`](implementation-plans/README.md)

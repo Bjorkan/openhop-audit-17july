@@ -1,0 +1,458 @@
+[
+  {
+    "finding": "BUG-028",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/wsradio.py",
+    "start": 12,
+    "end": 42,
+    "sha256": "d5e60e3ef8d89bafc6e476617922652725dcd846a23712141d114a51d7c36058"
+  },
+  {
+    "finding": "BUG-028",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 143,
+    "end": 154,
+    "sha256": "9e6cde89f21f54e38b4db709827a47a0c32613ac6799e893577ed42456c58b0e"
+  },
+  {
+    "finding": "BUG-029",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/base.py",
+    "start": 8,
+    "end": 16,
+    "sha256": "eb9919d2ede1a8fd705f4604078b6c9d82e4b7cb855269ba00247a33fa60739e"
+  },
+  {
+    "finding": "BUG-029",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 486,
+    "end": 503,
+    "sha256": "44b4a11f0a352eb4a121d4eecc02300616c11330e114c10ee6f1e6ce6900db5e"
+  },
+  {
+    "finding": "BUG-029",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 592,
+    "end": 614,
+    "sha256": "673f001a18045b899d0c21d11f7e019cbace53553be17a0bdfe29af4c76d2e31"
+  },
+  {
+    "finding": "BUG-030",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 36,
+    "end": 47,
+    "sha256": "f634489b0dd8f8882cd4ffe3e2ff70d36b6ce11a5ab9a6193d7afc89847a396d"
+  },
+  {
+    "finding": "BUG-030",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 593,
+    "end": 632,
+    "sha256": "1c48ff7f1bdf01df0f8835dd2f756354458d484990d44cc8b8ae90046b5bb8d1"
+  },
+  {
+    "finding": "BUG-030",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 628,
+    "end": 677,
+    "sha256": "14ba5b039edfa1e92930286296f86586e5580d009ad1dfd43417271e10af6504"
+  },
+  {
+    "finding": "BUG-031",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 502,
+    "end": 536,
+    "sha256": "89164629cf885b0e2a70080dbd6bae24c3b0aa067c5ba69473483629d4ebeb75"
+  },
+  {
+    "finding": "BUG-031",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 709,
+    "end": 725,
+    "sha256": "e4e21fb97dd2723f9ebe1f5777c5bc22131c4f34448f50c1ad70115946d98d81"
+  },
+  {
+    "finding": "BUG-031",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 724,
+    "end": 749,
+    "sha256": "35a0ef66dd26cab0819b42f2d3c4f39f6b20ac1a013c4ac39a6a9b613883cda8"
+  },
+  {
+    "finding": "BUG-032",
+    "repo": "Core",
+    "path": "src/openhop_core/node/node.py",
+    "start": 86,
+    "end": 108,
+    "sha256": "d2e0907a0db8d76dd4cb369e2c9739a4b22b97673b0ec4c8be25f0ac6e55af3e"
+  },
+  {
+    "finding": "BUG-032",
+    "repo": "Core",
+    "path": "src/openhop_core/node/dispatcher.py",
+    "start": 735,
+    "end": 766,
+    "sha256": "07f1b499e08873662b835ebe4043343ef742e80130d75171109d4fd0c0a66dee"
+  },
+  {
+    "finding": "BUG-033",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 134,
+    "end": 184,
+    "sha256": "7292773c4f6b5893740894eab213f9ce689c7cbef0605e715fd9a09434d38380"
+  },
+  {
+    "finding": "BUG-033",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 747,
+    "end": 779,
+    "sha256": "825c10b470b7f02b0f88adcc95102e48b4f226e7c5fb564acd428c79d04ab8be"
+  },
+  {
+    "finding": "BUG-033",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 772,
+    "end": 781,
+    "sha256": "e26855c1531eed55654b0b8eafc106965fc85bbc2d6fc3f86a4263705501827c"
+  },
+  {
+    "finding": "BUG-034",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/kiss_serial_wrapper.py",
+    "start": 229,
+    "end": 272,
+    "sha256": "b7017688691e9adfc1189a7c3c32bb9c5d7d91a0b31c4d6812bf1164a7e0f255"
+  },
+  {
+    "finding": "BUG-035",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/tcp_radio.py",
+    "start": 159,
+    "end": 171,
+    "sha256": "d6de028bda4e7aab38d1247e6531837a3ec7d8535b73559b9d2bab9e2a27c23a"
+  },
+  {
+    "finding": "BUG-035",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/tcp_radio.py",
+    "start": 887,
+    "end": 930,
+    "sha256": "a24056b4fcc1d01d7280d755d82ca2d34a625d20548fbe6f16d2849a792892b4"
+  },
+  {
+    "finding": "BUG-035",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/usb_radio.py",
+    "start": 951,
+    "end": 996,
+    "sha256": "ed4bfd36c403dc5a6a39db7ceae51c39664cdc3a0021a4c30557981446dd92e8"
+  },
+  {
+    "finding": "BUG-036",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/usb_radio.py",
+    "start": 1011,
+    "end": 1031,
+    "sha256": "15d286650b4aa818cadedf4d17aa3aa81df30b9199fc32ffbe5ca71ba55519e6"
+  },
+  {
+    "finding": "BUG-036",
+    "repo": "Repeater",
+    "path": "repeater/config_manager.py",
+    "start": 254,
+    "end": 369,
+    "sha256": "af91a44c3e023787b7a4590a6e8b69dea7f9dcd1f61c9451c2016d5efe58d65c"
+  },
+  {
+    "finding": "BUG-037",
+    "repo": "Core",
+    "path": "src/openhop_core/companion/base_send.py",
+    "start": 1279,
+    "end": 1339,
+    "sha256": "40b8d64082501ea221e634f08c7e2841486ad0d735a08036c7a02612787d7f0e"
+  },
+  {
+    "finding": "BUG-037",
+    "repo": "Core",
+    "path": "src/openhop_core/node/handlers/text.py",
+    "start": 326,
+    "end": 354,
+    "sha256": "1000ce4e55e0914a6bc89f2b42de750f3c93b0b99b47bb29f9ecabdc42a3879e"
+  },
+  {
+    "finding": "BUG-038",
+    "repo": "Core",
+    "path": "src/openhop_core/companion/base_send.py",
+    "start": 805,
+    "end": 861,
+    "sha256": "ebcbe9e73b9b216bc3221350abbbcfb9f17fa5526db4b52676dfd7e6217e26f5"
+  },
+  {
+    "finding": "BUG-038",
+    "repo": "Core",
+    "path": "src/openhop_core/node/handlers/login_response.py",
+    "start": 36,
+    "end": 79,
+    "sha256": "3cfbcb5913376dfc624d14abcb47e936cf875d1df6461f71508ad30488cc5ee2"
+  },
+  {
+    "finding": "BUG-038",
+    "repo": "Core",
+    "path": "src/openhop_core/node/handlers/login_response.py",
+    "start": 48,
+    "end": 56,
+    "sha256": "6ed84fc841f9a83c72d986810a3b817478e0c45d2872f2b5b04b0677889d556f"
+  },
+  {
+    "finding": "BUG-039",
+    "repo": "Core",
+    "path": "src/openhop_core/companion/frame_server/push.py",
+    "start": 36,
+    "end": 70,
+    "sha256": "1b2c96aa84c43991fdd838c84fd426ca100fcfe2f715e36b719231a65472d092"
+  },
+  {
+    "finding": "BUG-039",
+    "repo": "Core",
+    "path": "src/openhop_core/companion/base_callbacks.py",
+    "start": 23,
+    "end": 38,
+    "sha256": "8dd99e8099e11b8c8b68f07054ef8826d224c90c993505ba5f395a8b5170ffdb"
+  },
+  {
+    "finding": "BUG-040",
+    "repo": "Repeater",
+    "path": "repeater/companion/bridge.py",
+    "start": 97,
+    "end": 121,
+    "sha256": "79618f7c27e6385556458072bf19c71c1636bf11043da031e4bda8e64443ce8e"
+  },
+  {
+    "finding": "BUG-040",
+    "repo": "Core",
+    "path": "src/openhop_core/companion/base_config.py",
+    "start": 34,
+    "end": 46,
+    "sha256": "1799642ca8c84c3315dca7f8573e8aba163d960faabd961eabae88b5aedf1ce1"
+  },
+  {
+    "finding": "BUG-041",
+    "repo": "Repeater",
+    "path": "repeater/data_acquisition/websocket_handler.py",
+    "start": 150,
+    "end": 185,
+    "sha256": "7cb9ba5b67839a149c2d9feeca62d5b92ff7a5e027f8bf8609c18a8a5a8fbaeb"
+  },
+  {
+    "finding": "BUG-041",
+    "repo": "Repeater",
+    "path": "repeater/data_acquisition/websocket_handler.py",
+    "start": 198,
+    "end": 211,
+    "sha256": "78dccd63a4afb8e2c9c8cdc89c453c256f8f9610f6a4fc516b380d3d1b8c1bed"
+  },
+  {
+    "finding": "BUG-042",
+    "repo": "Repeater",
+    "path": "repeater/data_acquisition/rrdtool_handler.py",
+    "start": 39,
+    "end": 71,
+    "sha256": "42a31e5a71b036750ace1a8eeb095d7d69fe2f2ffac2d0c7b17b2ada859d1502"
+  },
+  {
+    "finding": "BUG-042",
+    "repo": "Repeater",
+    "path": "repeater/data_acquisition/rrdtool_handler.py",
+    "start": 259,
+    "end": 281,
+    "sha256": "ffac793f92fd58e4b2f03efa4cded255410dc9c0c07c4d1c84b407056df6cb43"
+  },
+  {
+    "finding": "BUG-042",
+    "repo": "Repeater",
+    "path": "repeater/web/api_endpoints.py",
+    "start": 490,
+    "end": 516,
+    "sha256": "670037a0bfde7a8b499b3d04a9e5b798704f81f334ce8a12cdb631f37e4584c3"
+  },
+  {
+    "finding": "BUG-043",
+    "repo": "Repeater",
+    "path": "repeater/config.py",
+    "start": 539,
+    "end": 551,
+    "sha256": "1b1a7ec652bcfc9039673515896ea78d10ce92ed6fc449f11ad363d67d110eb0"
+  },
+  {
+    "finding": "BUG-043",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/sx1262_wrapper.py",
+    "start": 137,
+    "end": 153,
+    "sha256": "2ed2c6145f6a5c95f576e256fa663bfe6958dabd161fa1d51cd6361988041982"
+  },
+  {
+    "finding": "BUG-043",
+    "repo": "Core",
+    "path": "src/openhop_core/hardware/lora/LoRaRF/SX126x.py",
+    "start": 822,
+    "end": 838,
+    "sha256": "f5f2b021112bb983844ecb14ea5f08b09b171177b6b177ceae04a85a1a5377bd"
+  },
+  {
+    "finding": "BUG-044",
+    "repo": "Repeater",
+    "path": "repeater/config_manager.py",
+    "start": 227,
+    "end": 262,
+    "sha256": "8aa598d05d17e0d844fb303372b54313a76b861f8c9b0dd12cd9bb3c5179aa8c"
+  },
+  {
+    "finding": "BUG-044",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 450,
+    "end": 470,
+    "sha256": "b5d600a02b2e77d95c6a0750a27a25c58e1f024bf4677902e203a8c3671f4d35"
+  },
+  {
+    "finding": "BUG-044",
+    "repo": "Repeater",
+    "path": "tests/test_handler_helpers_mesh_cli.py",
+    "start": 38,
+    "end": 49,
+    "sha256": "c4095f683082e0975dedb55db975e81c1ebed7cb0f9df0f36ee905a8c1234f22"
+  },
+  {
+    "finding": "BUG-045",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 446,
+    "end": 470,
+    "sha256": "78078f0827ac8180e9dbd50479656bce78ddb68a07186a1d1ba3cf405e901abd"
+  },
+  {
+    "finding": "BUG-045",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 677,
+    "end": 690,
+    "sha256": "2a06f05af91700b0a2867c01b920aa639de4fa3bc0bfa1e83a6c5b25417b4ad5"
+  },
+  {
+    "finding": "BUG-045",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/login.py",
+    "start": 91,
+    "end": 119,
+    "sha256": "1d2ee0f682f38aa788b4388a02d7317f43141ea2f77e456018d5a07c0e00c502"
+  },
+  {
+    "finding": "BUG-045",
+    "repo": "Repeater",
+    "path": "config.yaml.example",
+    "start": 114,
+    "end": 135,
+    "sha256": "63c3d79f872fbad2b48f7e66738872eb9962e04d8e33a883d6088982413fd2f6"
+  },
+  {
+    "finding": "BUG-046",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 320,
+    "end": 330,
+    "sha256": "0823118d830a6a33d1fc448fd0dff62edd5c477de562e7087e24cc760e107ffb"
+  },
+  {
+    "finding": "BUG-046",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 507,
+    "end": 519,
+    "sha256": "744983a6e020fb51029dacf2fd9af7ed4c3715667dde5b84c622d30c3d0329cc"
+  },
+  {
+    "finding": "BUG-046",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 661,
+    "end": 674,
+    "sha256": "fed25091f572dd0e8fedff61d18b6d629da881917df2481f5681a999b34a03e7"
+  },
+  {
+    "finding": "BUG-046",
+    "repo": "Repeater",
+    "path": "repeater/config_manager.py",
+    "start": 27,
+    "end": 41,
+    "sha256": "4153b97511b9bc2f49f80e709804dc1e16d1fd4d726a89405bf76ad313601c87"
+  },
+  {
+    "finding": "BUG-047",
+    "repo": "Repeater",
+    "path": "repeater/web/api_endpoints.py",
+    "start": 4091,
+    "end": 4106,
+    "sha256": "18a395a8f1e6aadd21d2b3c8101dedd1884d662b7e02b04a830eb2cc75d09a12"
+  },
+  {
+    "finding": "BUG-047",
+    "repo": "Repeater",
+    "path": "repeater/engine.py",
+    "start": 1639,
+    "end": 1649,
+    "sha256": "a41f1f33369c1e8efb8327cbbdf05403536ed37d947356ddcbd4a5541686429f"
+  },
+  {
+    "finding": "BUG-047",
+    "repo": "Repeater",
+    "path": "repeater/engine.py",
+    "start": 1690,
+    "end": 1703,
+    "sha256": "5d3352748ca8d8ad34963ca3c729307f5ee938a259979935da505c1b436c8d2f"
+  },
+  {
+    "finding": "BUG-047",
+    "repo": "Repeater",
+    "path": "repeater/engine.py",
+    "start": 1794,
+    "end": 1801,
+    "sha256": "a2c5817000e05de77a9c122a8939614cf0a9be972725b6d419b24a558ca94162"
+  },
+  {
+    "finding": "BUG-048",
+    "repo": "Repeater",
+    "path": "repeater/handler_helpers/mesh_cli.py",
+    "start": 709,
+    "end": 722,
+    "sha256": "f6ef07127c4c036fa90beecf75e5e9a249ac308b5955ff3f53a514645f01cec5"
+  },
+  {
+    "finding": "BUG-048",
+    "repo": "Repeater",
+    "path": "repeater/engine.py",
+    "start": 149,
+    "end": 157,
+    "sha256": "d1e46a86b85d3d85bc37c2b0e0f0eb4ab372740781b93ac201cea38d27140922"
+  },
+  {
+    "finding": "BUG-048",
+    "repo": "Repeater",
+    "path": "repeater/engine.py",
+    "start": 1794,
+    "end": 1801,
+    "sha256": "a2c5817000e05de77a9c122a8939614cf0a9be972725b6d419b24a558ca94162"
+  }
+]

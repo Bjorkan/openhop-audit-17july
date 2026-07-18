@@ -34,3 +34,37 @@
 - Focused cross-layer reproduction scripts included with the audit: 12 first-pass checks and 15 deep-review checks.
 
 This matrix distinguishes automated indexing from manually traced paths; it does not claim that every line was semantically proven correct.
+
+
+## Triple-verified deep-review extension
+
+The following additional source surfaces were traced during BUG-028–BUG-048. Inclusion here means the file participated in at least one end-to-end trace; it does not imply every line in the file was audited.
+
+| Repository | Path | Review scope |
+|---|---|---|
+| OpenHop Core | `src/openhop_core/hardware/wsradio.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/node/dispatcher.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/base.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/kiss_serial_wrapper.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/node/node.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/tcp_radio.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/usb_radio.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/config_manager.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/companion/base_send.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/node/handlers/text.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/node/handlers/login_response.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/companion/frame_server/push.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/companion/base_callbacks.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/companion/bridge.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/companion/base_config.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/data_acquisition/websocket_handler.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/data_acquisition/rrdtool_handler.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/web/api_endpoints.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/config.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/sx1262_wrapper.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Core | `src/openhop_core/hardware/lora/LoRaRF/SX126x.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/handler_helpers/mesh_cli.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `tests/test_handler_helpers_mesh_cli.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/handler_helpers/login.py` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `config.yaml.example` | Deep-review source trace and executable reproduction evidence |
+| OpenHop Repeater | `repeater/engine.py` | Deep-review source trace and executable reproduction evidence |

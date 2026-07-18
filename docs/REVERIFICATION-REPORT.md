@@ -65,9 +65,9 @@ The prior audit, its reproduction scripts and its implementation plans were trea
 - Complete Core and Repeater test suites rerun.
 - 28 independent checks, including negative checks for the retracted and reclassified claims.
 - 20 factual-premise checks for possible enhancements.
-- 4,371 quoted source lines compared byte-for-byte with the fresh source trees; zero mismatches.
+- Baseline: 4,371 quoted source lines compared byte-for-byte with the fresh source trees; zero mismatches.
 - External-entry-to-runtime tracing for configuration, API, callback, queue and updater paths.
-- Existing source/test path validation for all 43 active implementation plans.
+- Baseline source/test path validation for 43 implementation plans; the continuation validates all 64 active plans.
 - Relative Markdown link validation, SHA-256 manifest validation and ZIP integrity testing.
 
 ## Limitations
@@ -76,3 +76,7 @@ The prior audit, its reproduction scripts and its implementation plans were trea
 - The supplied frontend contains generated/minified assets only. Source-level UI fixes must be made in the real frontend source and rebuilt.
 - No `.git` metadata was supplied, so branch history, intent discussions and later upstream fixes cannot be inferred.
 - A confirmed finding is confirmed only against the supplied snapshots, not every later or earlier revision.
+
+## Triple-verified continuation
+
+The continuation added 21 reports, BUG-028 through BUG-048. Each passed three independent checks; see [`TRIPLE-VERIFICATION-REPORT.md`](TRIPLE-VERIFICATION-REPORT.md). The earlier 25 active classifications were not changed in this continuation.

@@ -1,4 +1,4 @@
-# Implementation plans — reverified edition
+# Implementation plans — triple-verified deep review
 
 These documents replace patch sketches and describe the expected change surface, decisions to confirm, tests, rollout and definition of done. They are planning material, not drop-in code.
 
@@ -31,6 +31,27 @@ Former `BUG-002`, `BUG-026`, `POSSIBLE-ENHANCEMENT-019` and `POSSIBLE-ENHANCEMEN
 | [BUG-024](BUG-024/implementation_plan.md) | Confirmed defect | An enhanced raw callback is invoked twice when its handler raises | OpenHop Core |
 | [BUG-025](BUG-025/implementation_plan.md) | Confirmed defect | Callbacks returning awaitables from synchronous wrappers are silently not awaited | OpenHop Core |
 | [BUG-027](BUG-027/implementation_plan.md) | Confirmed defect | Concurrent message persistence can remove a different, newer message from memory | OpenHop Core + OpenHop Repeater |
+| [BUG-028](BUG-028/implementation_plan.md) | Confirmed defect | WsRadio cannot be used with Dispatcher or MeshNode | OpenHop Core |
+| [BUG-029](BUG-029/implementation_plan.md) | Confirmed defect | Successful KISS queueing is reported as a transmission failure | OpenHop Core |
+| [BUG-030](BUG-030/implementation_plan.md) | Confirmed defect | Unterminated KISS receive frames can grow memory without bound | OpenHop Core |
+| [BUG-031](BUG-031/implementation_plan.md) | Confirmed defect | KISS wait_for_rx() completes an asyncio future from the serial worker thread | OpenHop Core |
+| [BUG-032](BUG-032/implementation_plan.md) | Confirmed defect | MeshNode.stop() does not stop a running node | OpenHop Core |
+| [BUG-033](BUG-033/implementation_plan.md) | Confirmed defect | KISS connection state remains healthy after initialization or worker failure | OpenHop Core |
+| [BUG-034](BUG-034/implementation_plan.md) | Confirmed defect | Rejected KISS configuration commands still mutate local configuration | OpenHop Core |
+| [BUG-035](BUG-035/implementation_plan.md) | Confirmed defect | Concurrent radio commands expecting the same response type overwrite one another | OpenHop Core |
+| [BUG-036](BUG-036/implementation_plan.md) | Confirmed defect | USB live radio setters report success without sending configuration to the modem | OpenHop Core + OpenHop Repeater |
+| [BUG-037](BUG-037/implementation_plan.md) | Confirmed defect | Companion command responses use one global unkeyed callback slot | OpenHop Core |
+| [BUG-038](BUG-038/implementation_plan.md) | Confirmed defect | Companion login responses use one global completion slot | OpenHop Core |
+| [BUG-039](BUG-039/implementation_plan.md) | Confirmed defect | Frame-server callback setup removes unrelated bridge listeners | OpenHop Core + OpenHop Repeater |
+| [BUG-040](BUG-040/implementation_plan.md) | Confirmed defect | Companion preference save failures are reported as successful runtime changes | OpenHop Repeater |
+| [BUG-041](BUG-041/implementation_plan.md) | Confirmed defect | WebSocket restart can leave duplicate heartbeat threads running | OpenHop Repeater |
+| [BUG-042](BUG-042/implementation_plan.md) | Confirmed defect | RRD COUNTER rates are treated as cumulative counter values | OpenHop Repeater + Web UI |
+| [BUG-043](BUG-043/implementation_plan.md) | Confirmed defect | Configured SX1262 sync word is never programmed | OpenHop Core + OpenHop Repeater |
+| [BUG-044](BUG-044/implementation_plan.md) | Confirmed defect | Mesh CLI uses an obsolete configuration-save return contract | OpenHop Repeater |
+| [BUG-045](BUG-045/implementation_plan.md) | Confirmed defect | Mesh CLI security commands write a configuration section authentication does not read | OpenHop Repeater |
+| [BUG-046](BUG-046/implementation_plan.md) | Confirmed defect | Mesh CLI documents frequency in MHz but stores the value as Hz | OpenHop Repeater |
+| [BUG-047](BUG-047/implementation_plan.md) | Confirmed defect | Local advert interval is saved and displayed but never used by the scheduler | OpenHop Repeater + Web UI |
+| [BUG-048](BUG-048/implementation_plan.md) | Confirmed defect | Mesh CLI flood advert interval writes a key the scheduler never reads | OpenHop Repeater |
 | [POSSIBLE-ENHANCEMENT-001](POSSIBLE-ENHANCEMENT-001/implementation_plan.md) | Possible enhancement | Possible enhancement — use one typed configuration schema across YAML, API, OpenAPI and UI | OpenHop Repeater + Web UI |
 | [POSSIBLE-ENHANCEMENT-002](POSSIBLE-ENHANCEMENT-002/implementation_plan.md) | Possible enhancement | Possible enhancement — introduce a transactional configuration update service | OpenHop Repeater |
 | [POSSIBLE-ENHANCEMENT-003](POSSIBLE-ENHANCEMENT-003/implementation_plan.md) | Possible enhancement | Possible enhancement — centralize frontend API response normalization | OpenHop Repeater Web UI |

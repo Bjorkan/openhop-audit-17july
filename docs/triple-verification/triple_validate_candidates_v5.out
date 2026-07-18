@@ -1,0 +1,16 @@
+Set command error: cannot unpack non-iterable bool object
+Set command error: cannot unpack non-iterable bool object
+PASS [MESHCLI-FREQUENCY-UNIT-MISMATCH] static-help-getter-setter-contract: Help declares MHz and get converts stored Hz to MHz, but set stores the raw MHz token without multiplying by 1,000,000.
+PASS [MESHCLI-FREQUENCY-UNIT-MISMATCH] real-public-command-persistence: reply='Error: cannot unpack non-iterable bool object'; runtime_value=869.618; persisted frequency is 869.618 rather than 869618000.
+PASS [MESHCLI-FREQUENCY-UNIT-MISMATCH] actual-live-application-path: ConfigManager truncates the stored value to int and applies 869 Hz to the radio; calls=[('frequency', 869)].
+PASS [LOCAL-ADVERT-INTERVAL-HAS-NO-RUNTIME-EFFECT] static-write-telemetry-scheduler-trace: The API writes and stats expose advert_interval_minutes, while the only periodic advert scheduler uses send_advert_interval_hours.
+PASS [LOCAL-ADVERT-INTERVAL-HAS-NO-RUNTIME-EFFECT] actual-runtime-reload: After live reload with advert_interval_minutes=1, the active scheduler interval remains 10 hours.
+PASS [LOCAL-ADVERT-INTERVAL-HAS-NO-RUNTIME-EFFECT] actual-scheduler-decision: With advert_interval_minutes=1 and last advert two minutes ago, the real scheduler sends nothing because it evaluates the unrelated ten-hour field.
+PASS [MESHCLI-FLOOD-ADVERT-KEY-MISMATCH] static-writer-reader-key-trace: Mesh CLI writes flood_advert_interval_hours, while startup, reload and the timer read send_advert_interval_hours.
+PASS [MESHCLI-FLOOD-ADVERT-KEY-MISMATCH] real-public-command-persistence: reply='Error: cannot unpack non-iterable bool object'; wrong key persisted as 3 while active scheduler key remains 10.
+PASS [MESHCLI-FLOOD-ADVERT-KEY-MISMATCH] actual-runtime-reload-countercheck: The real reload method ignores flood_advert_interval_hours=3 and retains send_advert_interval_hours=10.
+
+SUMMARY
+MESHCLI-FREQUENCY-UNIT-MISMATCH: 3/3
+LOCAL-ADVERT-INTERVAL-HAS-NO-RUNTIME-EFFECT: 3/3
+MESHCLI-FLOOD-ADVERT-KEY-MISMATCH: 3/3
